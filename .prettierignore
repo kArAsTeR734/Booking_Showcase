@@ -3,3 +3,6 @@ out/
 coverage/
 next-env.d.ts
 package-lock.json
+
+# Копия оригинального SKILL.md
+.agents/skills/karpathy-guidelines.md

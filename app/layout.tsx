@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { QueryProvider } from '@/app/query';
-import '@/app/styles/globals.css';
+import { QueryProvider } from '../src/app/query';
+import '../src/app/styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'Витрина бронирования проката',
