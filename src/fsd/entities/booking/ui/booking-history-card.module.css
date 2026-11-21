@@ -1,0 +1,47 @@
+.card {
+  position: relative;
+  display: grid;
+  width: 100%;
+  max-width: 390px;
+  gap: 14px;
+  padding: 18px;
+  border: var(--border-width) solid var(--design-border);
+  border-radius: 8px;
+  background: var(--design-surface);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.number {
+  font: 700 0.8125rem/1.25 var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.link::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+.card:has(.link:focus-visible) {
+  outline: 2px solid var(--design-pine);
+  outline-offset: 3px;
+}
+.card:has(.link:hover) .number {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.details {
+  color: var(--design-muted);
+  font-size: 0.875rem;
+}
+.total {
+  font: 700 1.125rem/1.25 var(--font-heading);
+}
+.arrow {
+  flex: none;
+  color: var(--design-pine);
+}

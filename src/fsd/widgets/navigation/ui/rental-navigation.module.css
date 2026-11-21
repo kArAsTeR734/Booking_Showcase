@@ -1,0 +1,112 @@
+.nav {
+  --focus-ring: var(--design-amber-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: 14px 20px;
+  border-radius: 8px;
+  background: var(--design-pine-deep);
+  color: var(--design-surface);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 0.9375rem/1.2 var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.brandIcon {
+  flex: none;
+  width: 25px;
+  height: 25px;
+  color: var(--design-amber);
+}
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  color: var(--design-navigation-muted);
+  font-size: 0.875rem;
+}
+.links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.links a[aria-current] {
+  color: var(--design-surface);
+  font-weight: 600;
+}
+.desktopTools {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-sm);
+}
+.date.date {
+  padding-inline: 12px;
+  background: var(--design-navigation-control);
+  color: var(--design-surface);
+  font: 600 0.8125rem/1.25 var(--font-body);
+}
+.date.date:hover {
+  background: color-mix(in srgb, var(--design-surface) 16%, transparent);
+}
+.date svg,
+.mobileCart.mobileCart {
+  color: var(--design-amber-soft);
+}
+.cart.cart {
+  padding-inline: 12px;
+  font-size: 0.75rem;
+}
+.mobile,
+.mobileTools {
+  display: none;
+}
+
+.nav[data-compact='true'] {
+  max-width: 390px;
+}
+.nav[data-compact='true'] .desktop,
+.nav[data-compact='true'] .links,
+.nav[data-compact='true'] .desktopTools {
+  display: none;
+}
+.nav[data-compact='true'] .mobile {
+  display: inline;
+}
+.nav[data-compact='true'] .mobileTools {
+  display: flex;
+}
+
+.mobileTools a:hover {
+  background: var(--design-navigation-control);
+}
+.mobileTools a > svg {
+  width: 21px;
+  height: 21px;
+}
+
+@media (max-width: 820px) {
+  .nav {
+    gap: 12px;
+    padding: 7px 12px 7px 16px;
+  }
+  .nav .desktop,
+  .nav .links,
+  .nav .desktopTools {
+    display: none;
+  }
+  .nav .mobile {
+    display: inline;
+  }
+  .nav .mobileTools {
+    display: flex;
+  }
+}
+
+.nav[data-compact='true'] {
+  gap: 12px;
+  padding: 7px 12px 7px 16px;
+}

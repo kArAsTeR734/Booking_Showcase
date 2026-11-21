@@ -1,0 +1,38 @@
+:root {
+  --design-canvas: #f5f1e8;
+  --design-surface: #fffdf8;
+  --design-surface-raised: #faf6ed;
+  --design-sand: #e8ddc9;
+  --design-border: #cfc2ad;
+  --design-pine: #254838;
+  --design-pine-deep: #183228;
+  --design-charcoal: #20251f;
+  --design-muted: #667065;
+  --design-amber: #d8732d;
+  --design-amber-soft: #f2c48e;
+  --design-success: #3f6b4e;
+  --design-warning: #9a5a24;
+  --design-error: #a33a2b;
+  --design-info: #376679;
+  --design-error-surface: #fff1ec;
+  --design-selection-surface: #e2ece5;
+  --design-available-surface: #f3e3d1;
+  --design-warning-surface: #fff2df;
+  --design-success-surface: #e4efe6;
+  --design-navigation-muted: #c8d2cb;
+  --design-navigation-control: #ffffff14;
+  --design-skeleton-line: #ded5c5;
+  --design-state-icon: #f3e4d4;
+  --font-body: 'Source Sans 3 Variable', system-ui, sans-serif;
+  --font-heading: 'Archivo Variable', var(--font-body);
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --radius-small: 6px;
+  --radius-field: 7px;
+  --radius-card: 10px;
+  --radius-large: 16px;
+  --border-width: 1px;
+}

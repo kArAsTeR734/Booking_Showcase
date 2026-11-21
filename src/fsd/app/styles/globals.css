@@ -1,0 +1,35 @@
+@import 'tailwindcss' source(none);
+@import './variables.css';
+@source '../../shared/ui';
+
+@theme inline {
+  --color-background: var(--design-canvas);
+  --color-foreground: var(--design-charcoal);
+  --color-primary: var(--design-amber);
+  --color-primary-foreground: var(--design-charcoal);
+  --color-secondary: var(--design-pine);
+  --color-secondary-foreground: var(--design-surface);
+  --color-accent: var(--design-sand);
+  --color-accent-foreground: var(--design-pine);
+  --color-destructive: var(--design-error);
+  --color-border: var(--design-border);
+  --color-input: var(--design-border);
+  --color-ring: var(--design-pine);
+}
+
+body {
+  background: var(--design-canvas);
+  color: var(--design-charcoal);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring, var(--design-pine));
+  outline-offset: 3px;
+}

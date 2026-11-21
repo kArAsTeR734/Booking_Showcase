@@ -1,0 +1,121 @@
+.card,
+.skeleton {
+  position: relative;
+  width: 100%;
+  max-width: 310px;
+  border: var(--border-width) solid var(--design-border);
+  border-radius: var(--radius-card);
+  background: var(--design-surface);
+}
+.card {
+  overflow: clip;
+}
+.image {
+  position: relative;
+  height: 190px;
+  background: var(--design-sand);
+}
+.image img {
+  object-fit: cover;
+}
+.availability {
+  position: absolute;
+  inset: 12px auto auto 12px;
+}
+.body {
+  display: grid;
+  gap: 10px;
+  padding: var(--space-md);
+}
+.category {
+  color: var(--design-warning);
+  font: 700 0.625rem/1.25 var(--font-heading);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.link::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+.card:has(.link:focus-visible) {
+  outline: 2px solid var(--design-pine);
+  outline-offset: 3px;
+}
+.card:has(.link:hover) .title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.meta,
+.deposit {
+  color: var(--design-muted);
+  line-height: 1.35;
+}
+.meta {
+  font-size: 0.8125rem;
+}
+.deposit {
+  font-size: 0.75rem;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--space-sm);
+}
+.prices {
+  display: grid;
+  gap: 2px;
+}
+.price {
+  font: 700 1rem/1.25 var(--font-heading);
+}
+.arrow {
+  flex: none;
+  color: var(--design-pine);
+}
+
+.skeleton {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+.skeleton > div {
+  max-width: 100%;
+  border-radius: 4px;
+  background: var(--design-skeleton-line);
+}
+.skeleton .skeletonImage {
+  height: 176px;
+  border-radius: var(--radius-small);
+  background: var(--design-sand);
+}
+.skeletonTitle {
+  width: 220px;
+  height: 18px;
+}
+.skeletonText {
+  width: 270px;
+  height: 11px;
+}
+.skeletonPrice {
+  width: 120px;
+  height: 15px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton > div {
+    animation: pulse 1.8s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes pulse {
+  to {
+    opacity: 0.55;
+  }
+}
