@@ -7,23 +7,32 @@ type TextFieldProps = Omit<ComponentProps<'input'>, 'id'> & {
   label: string;
   icon?: ReactNode;
   hint?: string;
+  error?: string;
+  endAdornment?: ReactNode;
 };
 
 export function TextField({
   id,
   label,
   hint,
+  error,
   icon,
+  endAdornment,
   className,
   'aria-describedby': describedBy,
+  'aria-invalid': invalid,
   ...input
 }: TextFieldProps) {
   const hintId = hint ? `${id}-hint` : undefined;
+  const errorId = error ? `${id}-error` : undefined;
+  const descriptionIds = [describedBy, hintId, errorId].filter(Boolean).join(' ');
 
   return (
-    <label className={cn(styles.field, className)} htmlFor={id}>
-      <span className={styles.label}>{label}</span>
-      <span className={styles.inputFrame}>
+    <div className={cn(styles.field, className)}>
+      <label className={styles.label} htmlFor={id}>
+        {label}
+      </label>
+      <div className={styles.inputFrame}>
         {icon && (
           <span className={styles.fieldIcon} aria-hidden>
             {icon}
@@ -33,16 +42,21 @@ export function TextField({
           {...input}
           id={id}
           className={styles.input}
-          aria-describedby={
-            hintId && describedBy ? `${hintId} ${describedBy}` : (hintId ?? describedBy)
-          }
+          aria-describedby={descriptionIds || undefined}
+          aria-invalid={error ? true : invalid}
         />
-      </span>
+        {endAdornment}
+      </div>
       {hint && (
         <span id={hintId} className={styles.hint}>
           {hint}
         </span>
       )}
-    </label>
+      {error && (
+        <span id={errorId} className={styles.error}>
+          {error}
+        </span>
+      )}
+    </div>
   );
 }

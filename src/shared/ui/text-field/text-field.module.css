@@ -10,6 +10,10 @@
   color: var(--design-muted);
   font-size: 0.75rem;
 }
+.error {
+  color: var(--design-error);
+  font-size: 0.875rem;
+}
 .inputFrame {
   display: flex;
   align-items: center;
@@ -23,6 +27,9 @@
 }
 .inputFrame:focus-within {
   border-color: var(--design-pine);
+}
+.inputFrame:has([aria-invalid='true']) {
+  border-color: var(--design-error);
 }
 .input {
   min-width: 0;

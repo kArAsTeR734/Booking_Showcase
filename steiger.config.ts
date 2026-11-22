@@ -13,4 +13,9 @@ export default defineConfig([
     ],
     rules: { 'fsd/insignificant-slice': 'off' },
   },
+  {
+    // Вход выделен в отдельное действие. Пока его подключает только экран /auth.
+    files: ['./src/features/sign-in/**'],
+    rules: { 'fsd/insignificant-slice': 'off' },
+  },
 ]);
