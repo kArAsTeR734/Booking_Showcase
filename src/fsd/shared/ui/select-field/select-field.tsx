@@ -3,7 +3,7 @@
 import { Check, ChevronDown } from 'lucide-react';
 import { Select } from 'radix-ui';
 import { useId } from 'react';
-import styles from './fields.module.css';
+import styles from './select-field.module.css';
 
 type SelectFieldProps = {
   label: string;

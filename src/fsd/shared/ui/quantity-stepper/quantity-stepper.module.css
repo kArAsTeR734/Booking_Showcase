@@ -1,0 +1,19 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: var(--border-width) solid var(--design-border);
+  border-radius: var(--radius-field);
+  background: var(--design-surface);
+}
+.stepper {
+  width: fit-content;
+  gap: 4px;
+  padding: 5px;
+}
+.quantity {
+  min-width: 2ch;
+  font: 700 0.875rem/1 var(--font-heading);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { cn } from '../lib';
-import styles from './fields.module.css';
+import { cn } from '../../lib';
+import styles from './text-field.module.css';
 
 type TextFieldProps = Omit<ComponentProps<'input'>, 'id'> & {
   id: string;

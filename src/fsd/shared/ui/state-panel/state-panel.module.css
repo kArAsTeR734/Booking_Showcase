@@ -1,0 +1,34 @@
+.panel {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  border: var(--border-width) solid var(--design-border);
+  border-radius: var(--radius-card);
+  background: var(--design-surface);
+}
+.stateIcon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--design-state-icon);
+  color: var(--design-warning);
+}
+.stateIcon svg {
+  width: 22px;
+  height: 22px;
+}
+.stateTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.stateText {
+  color: var(--design-muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.stateAction {
+  justify-self: start;
+}

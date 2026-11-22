@@ -3,23 +3,13 @@
   min-width: 0;
   gap: 6px;
 }
-.label {
-  font: 700 0.75rem/1.2 var(--font-heading);
-}
 .eyebrow {
   color: var(--design-muted);
   font: 700 0.625rem/1.2 var(--font-heading);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.hint {
-  color: var(--design-muted);
-  font-size: 0.75rem;
-}
-
-.inputFrame,
-.selectTrigger,
-.stepper {
+.selectTrigger {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -27,23 +17,6 @@
   border-radius: var(--radius-field);
   background: var(--design-surface);
 }
-
-.inputFrame {
-  padding-inline: 13px;
-}
-.inputFrame:focus-within {
-  border-color: var(--design-pine);
-}
-.input {
-  min-width: 0;
-  width: 100%;
-  min-height: 42px;
-  font-size: 0.875rem;
-}
-.input:focus-visible {
-  outline: none;
-}
-.input::placeholder,
 .fieldIcon {
   color: var(--design-muted);
 }
@@ -51,7 +24,6 @@
   display: inline-flex;
   flex: none;
 }
-
 .selectTrigger {
   min-height: 42px;
   justify-content: space-between;
@@ -86,35 +58,4 @@
 }
 .selectOption[data-disabled] {
   opacity: 0.55;
-}
-
-.chip.chip {
-  width: fit-content;
-  min-height: 38px;
-  padding: 8px 12px;
-  gap: 7px;
-  border: var(--border-width) solid var(--design-border);
-  border-radius: 20px;
-  font-size: 0.75rem;
-}
-.chip.chip[aria-pressed='true'] {
-  border-color: var(--design-pine);
-  background: var(--design-selection-surface);
-  color: var(--design-pine);
-}
-.chip.chip > svg {
-  width: 16px;
-  height: 16px;
-}
-
-.stepper {
-  width: fit-content;
-  gap: 4px;
-  padding: 5px;
-}
-.quantity {
-  min-width: 2ch;
-  font: 700 0.875rem/1 var(--font-heading);
-  text-align: center;
-  font-variant-numeric: tabular-nums;
 }

@@ -1,0 +1,24 @@
+.alert {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border: var(--border-width) solid var(--design-amber-soft);
+  border-radius: 8px;
+  background: var(--design-warning-surface);
+}
+.warningIcon {
+  flex: none;
+  color: var(--design-warning);
+}
+.alertBody {
+  display: grid;
+  gap: 4px;
+}
+.alertTitle {
+  font: 700 0.8125rem/1.3 var(--font-heading);
+}
+.alertText {
+  color: var(--design-muted);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
