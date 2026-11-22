@@ -1,6 +1,7 @@
 .next/
 out/
 coverage/
+storybook-static/
 next-env.d.ts
 package-lock.json
 

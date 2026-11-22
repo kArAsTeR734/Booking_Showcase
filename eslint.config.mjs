@@ -14,12 +14,11 @@ export default defineConfig([
       'no-restricted-syntax': [
         'error',
         {
-          selector:
-            "JSXOpeningElement[name.type='JSXIdentifier'][name.name='button']",
+          selector: "JSXOpeningElement[name.type='JSXIdentifier'][name.name='button']",
           message: 'Используйте Button из @/shared/ui.',
         },
       ],
     },
   },
-  globalIgnores(['.next/**', 'out/**', 'coverage/**', 'next-env.d.ts']),
+  globalIgnores(['.next/**', 'out/**', 'coverage/**', 'storybook-static/**', 'next-env.d.ts']),
 ]);

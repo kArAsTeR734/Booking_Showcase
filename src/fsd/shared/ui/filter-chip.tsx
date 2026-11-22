@@ -8,20 +8,9 @@ type FilterChipProps = Omit<ComponentProps<'button'>, 'aria-pressed'> & {
   icon?: ReactNode;
 };
 
-export function FilterChip({
-  active,
-  icon,
-  className,
-  children,
-  ...props
-}: FilterChipProps) {
+export function FilterChip({ active, icon, className, children, ...props }: FilterChipProps) {
   return (
-    <Button
-      {...props}
-      variant="ghost"
-      aria-pressed={active}
-      className={cn(styles.chip, className)}
-    >
+    <Button {...props} variant="ghost" aria-pressed={active} className={cn(styles.chip, className)}>
       {icon}
       {children}
     </Button>

@@ -60,13 +60,7 @@ export function StatePanel({
   );
 }
 
-export function PriceBreakdownRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+export function PriceBreakdownRow({ label, value }: { label: string; value: string }) {
   return (
     <div className={styles.priceRow}>
       <dt>{label}</dt>

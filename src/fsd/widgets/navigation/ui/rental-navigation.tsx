@@ -30,11 +30,7 @@ export function RentalNavigation({
       className={styles.nav}
       data-compact={compact}
     >
-      <Link
-        href={homeHref}
-        className={styles.brand}
-        aria-label="Северный прокат"
-      >
+      <Link href={homeHref} className={styles.brand} aria-label="Северный прокат">
         <MountainSnow aria-hidden className={styles.brandIcon} />
         <span className={styles.desktop}>Северный прокат</span>
         <span className={styles.mobile}>Север</span>
@@ -68,12 +64,7 @@ export function RentalNavigation({
             <Search aria-hidden />
           </Link>
         </Button>
-        <Button
-          asChild
-          variant="ghost"
-          size="icon"
-          className={styles.mobileCart}
-        >
+        <Button asChild variant="ghost" size="icon" className={styles.mobileCart}>
           <Link href={cartHref} aria-label={cartLabel}>
             <ShoppingBag aria-hidden />
           </Link>

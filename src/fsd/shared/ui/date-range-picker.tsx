@@ -47,20 +47,13 @@ export function DateRangePicker({
           <CalendarDays aria-hidden className={styles.calendar} />
           <span className={styles.summary}>
             <span className={styles.label}>{label}</span>
-            <span className={styles.value}>
-              {value ? formatDateRange(value) : 'Выберите даты'}
-            </span>
+            <span className={styles.value}>{value ? formatDateRange(value) : 'Выберите даты'}</span>
           </span>
           <ChevronDown aria-hidden className={styles.chevron} />
         </Button>
       </Popover.Trigger>
       <Popover.Portal>
-        <Popover.Content
-          align="start"
-          sideOffset={6}
-          aria-label={label}
-          className={styles.popover}
-        >
+        <Popover.Content align="start" sideOffset={6} aria-label={label} className={styles.popover}>
           <form onSubmit={handleSubmit} className={styles.form}>
             <TextField
               id={`${id}-start`}

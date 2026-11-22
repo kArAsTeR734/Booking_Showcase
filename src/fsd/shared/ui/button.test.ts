@@ -4,11 +4,7 @@ import styles from './button.module.css';
 
 describe('buttonVariants', () => {
   it('по умолчанию выбирает основное действие стандартного размера', () => {
-    expect(buttonVariants().split(' ')).toEqual([
-      styles.button,
-      styles.primary,
-      styles.standard,
-    ]);
+    expect(buttonVariants().split(' ')).toEqual([styles.button, styles.primary, styles.standard]);
   });
 
   it('сочетает вариант, размер и переданный класс', () => {
