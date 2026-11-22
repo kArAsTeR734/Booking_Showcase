@@ -6,11 +6,16 @@ export default defineConfig([
   {
     // Эти компоненты подготовлены для будущих экранов проката.
     files: [
-      './src/fsd/entities/booking/**',
-      './src/fsd/entities/cart/**',
-      './src/fsd/entities/product/**',
-      './src/fsd/widgets/navigation/**',
+      './src/entities/booking/**',
+      './src/entities/cart/**',
+      './src/entities/product/**',
+      './src/widgets/navigation/**',
     ],
+    rules: { 'fsd/insignificant-slice': 'off' },
+  },
+  {
+    // Вход выделен в отдельное действие. Пока его подключает только экран /auth.
+    files: ['./src/features/sign-in/**'],
     rules: { 'fsd/insignificant-slice': 'off' },
   },
 ]);
