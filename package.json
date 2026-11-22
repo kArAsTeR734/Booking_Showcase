@@ -43,7 +43,7 @@
     "start": "next start",
     "build": "next build",
     "lint": "eslint . --max-warnings=0 && npm run lint:fsd",
-    "lint:fsd": "steiger ./src/fsd --fail-on-warnings",
+    "lint:fsd": "steiger ./src --fail-on-warnings",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",

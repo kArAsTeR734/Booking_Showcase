@@ -1,4 +1,4 @@
-import styles from './product-card.module.css';
+import styles from '../product-card/product-card.module.css';
 
 export function ProductCardSkeleton() {
   return (

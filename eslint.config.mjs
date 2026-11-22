@@ -9,7 +9,7 @@ export default defineConfig([
   prettier,
   {
     files: ['{app,src}/**/*.tsx'],
-    ignores: ['src/fsd/shared/ui/button/button.tsx'],
+    ignores: ['src/shared/ui/button/button.tsx'],
     rules: {
       'no-restricted-syntax': [
         'error',

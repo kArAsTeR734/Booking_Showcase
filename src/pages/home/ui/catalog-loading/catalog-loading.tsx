@@ -1,5 +1,5 @@
 import { ProductCardSkeleton } from '@/entities/product';
-import styles from './home-page.module.css';
+import styles from '../home-page/home-page.module.css';
 
 export function CatalogLoading() {
   return (
