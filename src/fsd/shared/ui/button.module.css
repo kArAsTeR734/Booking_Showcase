@@ -56,11 +56,7 @@
   color: var(--design-error);
 }
 .danger:hover:not(:disabled) {
-  background: color-mix(
-    in srgb,
-    var(--design-error) 12%,
-    var(--design-error-surface)
-  );
+  background: color-mix(in srgb, var(--design-error) 12%, var(--design-error-surface));
 }
 .link {
   color: var(--design-pine);

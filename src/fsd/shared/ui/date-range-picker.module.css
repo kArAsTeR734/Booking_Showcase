@@ -41,8 +41,7 @@
   border: var(--border-width) solid var(--design-border);
   border-radius: var(--radius-card);
   background: var(--design-surface);
-  box-shadow: 0 8px 24px
-    color-mix(in srgb, var(--design-charcoal) 14%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--design-charcoal) 14%, transparent);
 }
 .form {
   display: grid;

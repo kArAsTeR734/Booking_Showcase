@@ -34,9 +34,7 @@ export function TextField({
           id={id}
           className={styles.input}
           aria-describedby={
-            hintId && describedBy
-              ? `${hintId} ${describedBy}`
-              : (hintId ?? describedBy)
+            hintId && describedBy ? `${hintId} ${describedBy}` : (hintId ?? describedBy)
           }
         />
       </span>

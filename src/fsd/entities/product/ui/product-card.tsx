@@ -30,12 +30,7 @@ export function ProductCard({
   return (
     <article className={styles.card}>
       <div className={styles.image}>
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          sizes="(max-width: 360px) 100vw, 310px"
-        />
+        <Image src={imageSrc} alt={imageAlt} fill sizes="(max-width: 360px) 100vw, 310px" />
         {availability && (
           <div className={styles.availability}>
             <StatusBadge variant="available">{availability}</StatusBadge>
