@@ -1,0 +1,16 @@
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding-block: 9px;
+  border-bottom: var(--border-width) solid var(--design-border);
+}
+.priceRow dt {
+  color: var(--design-muted);
+  font-size: 0.875rem;
+}
+.priceRow dd {
+  flex-shrink: 0;
+  font: 700 0.875rem/1.25 var(--font-heading);
+}

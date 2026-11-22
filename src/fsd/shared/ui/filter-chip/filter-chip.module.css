@@ -1,0 +1,18 @@
+.chip.chip {
+  width: fit-content;
+  min-height: 38px;
+  padding: 8px 12px;
+  gap: 7px;
+  border: var(--border-width) solid var(--design-border);
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+.chip.chip[aria-pressed='true'] {
+  border-color: var(--design-pine);
+  background: var(--design-selection-surface);
+  color: var(--design-pine);
+}
+.chip.chip > svg {
+  width: 16px;
+  height: 16px;
+}

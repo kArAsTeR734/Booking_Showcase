@@ -1,7 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { cn } from '../lib';
-import { Button } from './button';
-import styles from './fields.module.css';
+import { cn } from '../../lib';
+import { Button } from '../button/button';
+import styles from './filter-chip.module.css';
 
 type FilterChipProps = Omit<ComponentProps<'button'>, 'aria-pressed'> & {
   active: boolean;

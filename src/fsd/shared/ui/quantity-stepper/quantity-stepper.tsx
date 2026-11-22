@@ -1,8 +1,8 @@
 'use client';
 
 import { Minus, Plus } from 'lucide-react';
-import { Button } from './button';
-import styles from './fields.module.css';
+import { Button } from '../button/button';
+import styles from './quantity-stepper.module.css';
 
 type QuantityStepperProps = {
   value: number;

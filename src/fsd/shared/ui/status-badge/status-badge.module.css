@@ -1,0 +1,24 @@
+.badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: var(--radius-large);
+  background: var(--design-success-surface);
+  color: var(--design-success);
+  font: 700 0.625rem/1.15 var(--font-heading);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.badge[data-variant='available'] {
+  background: var(--design-available-surface);
+  color: var(--design-pine);
+}
+.dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--design-success);
+}

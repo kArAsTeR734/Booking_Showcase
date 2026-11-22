@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { StatusBadge } from './feedback';
+import { StatusBadge } from './status-badge';
 
 const meta = {
   title: 'Shared UI/StatusBadge',

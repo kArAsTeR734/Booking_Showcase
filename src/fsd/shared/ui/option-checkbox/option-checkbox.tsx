@@ -3,7 +3,7 @@
 import { Check } from 'lucide-react';
 import { Checkbox } from 'radix-ui';
 import { useId } from 'react';
-import styles from './feedback.module.css';
+import styles from './option-checkbox.module.css';
 
 type OptionCheckboxProps = {
   title: string;
