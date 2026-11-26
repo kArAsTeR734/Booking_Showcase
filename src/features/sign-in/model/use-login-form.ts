@@ -2,7 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { MockApiError, requestMock } from '@/shared/api';
+import { saveSessionToken, sessionSchema, useSessionStore } from '@/entities/user';
 import { loginSchema } from './login-schema';
+import { useRouter } from 'next/navigation';
 
 export function useLoginForm() {
   const {
@@ -13,9 +15,17 @@ export function useLoginForm() {
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(loginSchema),
   });
+  const setSession = useSessionStore((state) => state.setSession);
+  const router = useRouter();
   const login = useMutation({
     mutationFn: async () => {
-      await requestMock('/session/login', { method: 'POST' });
+      const response = await requestMock('/session/login', { method: 'POST' });
+      return sessionSchema.parse(await response.json());
+    },
+    onSuccess: (session) => {
+      saveSessionToken(session.token);
+      setSession(session);
+      router.replace('/');
     },
   });
 

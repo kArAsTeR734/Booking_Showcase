@@ -1,9 +1,11 @@
 import { LoginForm } from '@/features/sign-in';
+import { AuthIntro } from '../auth-intro/auth-intro';
 import styles from './auth-page.module.css';
 
 export function AuthPage() {
   return (
     <main className={styles.page}>
+      <AuthIntro />
       <section className={styles.content} aria-labelledby="auth-title">
         <header className={styles.header}>
           <p className={styles.eyebrow}>Шаг перед оформлением</p>

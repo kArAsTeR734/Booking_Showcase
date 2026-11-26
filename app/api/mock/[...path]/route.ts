@@ -8,7 +8,8 @@ type Booking = {
   status: 'pending-payment' | 'paid';
 };
 
-const sessions = new Map<string, Map<string, Booking>>();
+type MockUser = { id: string; name: string; surname: string };
+const sessions = new Map<string, { user: MockUser; bookings: Map<string, Booking> }>();
 
 function error(status: number, code: string) {
   return Response.json({ code }, { status });
@@ -29,7 +30,8 @@ function isBookingItem(value: unknown): value is BookingItem {
 
 function getSession(request: Request) {
   const token = request.headers.get('authorization')?.match(/^Bearer (\S+)$/i)?.[1];
-  return token ? { token, bookings: sessions.get(token) } : undefined;
+  const session = token ? sessions.get(token) : undefined;
+  return token && session ? { token, ...session } : undefined;
 }
 
 export async function GET(request: Request, context: RouteContext) {
@@ -65,14 +67,15 @@ export async function POST(request: Request, context: RouteContext) {
 
   if (resource === 'session' && id === 'login' && !action) {
     const token = crypto.randomUUID();
-    sessions.set(token, new Map());
-    return Response.json({ token });
+    const user = { id: crypto.randomUUID(), name: 'Алексей', surname: 'Иванов' };
+    sessions.set(token, { user, bookings: new Map() });
+    return Response.json({ token, user });
   }
 
   const session = getSession(request);
   if (resource === 'session' && id === 'refresh' && !action) {
-    return session?.bookings
-      ? Response.json({ token: session.token })
+    return session?.bookings && request.headers.get('x-mock-scenario') !== 'expired-session'
+      ? Response.json({ token: session.token, user: session.user })
       : error(401, 'SESSION_EXPIRED');
   }
 

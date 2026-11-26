@@ -20,7 +20,7 @@ export function LoginForm() {
         type="email"
         inputMode="email"
         autoComplete="username"
-        autoCapitalize="none"
+        placeholder="example@mail.ru"
         spellCheck={false}
         required
         icon={<Mail size={16} />}
@@ -32,7 +32,7 @@ export function LoginForm() {
         label="Пароль"
         type={isPasswordVisible ? 'text' : 'password'}
         autoComplete="current-password"
-        autoCapitalize="none"
+        placeholder="*********"
         spellCheck={false}
         required
         icon={<LockKeyhole size={16} />}
@@ -51,7 +51,7 @@ export function LoginForm() {
           </Button>
         }
       />
-      <Button type="submit" disabled={isPending}>
+      <Button className={styles.submitButton} type="submit" disabled={isPending}>
         <LogIn size={16} aria-hidden />
         {isPending ? 'Входим…' : 'Войти и продолжить'}
       </Button>

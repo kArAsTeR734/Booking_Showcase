@@ -93,3 +93,20 @@ describe('rental HTTP mock', () => {
     expect(await (await request('GET', 'bookings', await login())).json()).toEqual({ items: [] });
   });
 });
+
+describe('session identity', () => {
+  it('returns the same user when a token is verified and rejects an unknown token', async () => {
+    const loginResponse = await request('POST', 'session/login');
+    const session = await loginResponse.json();
+    expect(session).toMatchObject({
+      token: expect.any(String),
+      user: { id: expect.any(String), name: expect.any(String), surname: expect.any(String) },
+    });
+    const verified = await request('POST', 'session/refresh', {
+      Authorization: `Bearer ${session.token}`,
+    });
+    expect(await verified.json()).toEqual(session);
+    const rejected = await request('POST', 'session/refresh', { Authorization: 'Bearer unknown' });
+    expect(rejected.status).toBe(401);
+  });
+});
