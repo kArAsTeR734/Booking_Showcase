@@ -9,6 +9,7 @@ export default defineConfig([
       './src/entities/booking/**',
       './src/entities/cart/**',
       './src/entities/product/**',
+      './src/entities/user/**',
       './src/widgets/navigation/**',
     ],
     rules: { 'fsd/insignificant-slice': 'off' },
