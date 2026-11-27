@@ -35,13 +35,14 @@ function getSession(request: Request) {
 }
 
 export async function GET(request: Request, context: RouteContext) {
-  if (process.env.NODE_ENV === 'production') return error(404, 'NOT_FOUND');
-
   const [resource, id, ...rest] = (await context.params).path;
   if (rest.length > 0) return error(404, 'NOT_FOUND');
+  if (resource === 'products' && !id) {
+    return Response.json(listProducts(new URL(request.url).searchParams));
+  }
+  if (process.env.NODE_ENV === 'production') return error(404, 'NOT_FOUND');
 
   if (resource === 'products') {
-    if (!id) return Response.json(listProducts(new URL(request.url).searchParams));
     const product = getProduct(id);
     return product ? Response.json(product) : error(404, 'NOT_FOUND');
   }

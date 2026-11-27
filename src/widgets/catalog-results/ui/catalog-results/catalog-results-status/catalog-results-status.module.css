@@ -1,0 +1,14 @@
+.updating {
+  color: var(--design-pine);
+  margin-bottom: 8px;
+}
+.results[data-updating='true'] {
+  opacity: 0.65;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}

@@ -22,3 +22,12 @@
   font-size: 0.8125rem;
   line-height: 1.35;
 }
+
+.alert[data-compact='true'] {
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 12px;
+}
+.alert[data-compact='true'] .alertText {
+  color: var(--design-charcoal);
+}

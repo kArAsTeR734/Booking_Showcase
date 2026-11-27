@@ -1,9 +1,12 @@
 'use client';
 
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useSyncExternalStore, type ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { ROUTES } from '@/shared/const';
 import { Button } from '@/shared/ui';
-import { useSessionStore } from '@/entities/user/model/hooks/use-session-store';
+import { useSessionStore } from '../../model/hooks/use-session-store';
+
+const subscribeToHydration = () => () => {};
 
 export function SessionContent({
   children,
@@ -15,11 +18,21 @@ export function SessionContent({
   const status = useSessionStore((state) => state.status);
   const pathname = usePathname();
   const router = useRouter();
-  const redirecting = status === 'guest' && pathname !== null && pathname !== '/auth';
+  // The prerendered 404 and the browser can see different paths during hydration.
+  const hydrated = useSyncExternalStore(
+    subscribeToHydration,
+    () => true,
+    () => false,
+  );
+  const requiresSession = hydrated && pathname === ROUTES.bookingHistory;
+  const redirecting = requiresSession && status === 'guest';
 
   useEffect(() => {
-    if (redirecting) router.replace('/auth');
+    if (redirecting) router.replace(ROUTES.auth);
   }, [redirecting, router]);
+
+  if (!requiresSession && pathname !== ROUTES.auth) return children;
+
   return (
     <>
       {status === 'checking' ? <p role="status">Проверяем сессию…</p> : null}

@@ -10,13 +10,14 @@ type SelectFieldProps = {
   options: readonly { value: string; label: string; disabled?: boolean }[];
   value: string;
   onValueChange: (value: string) => void;
+  compact?: boolean;
 };
 
-export function SelectField({ label, options, value, onValueChange }: SelectFieldProps) {
+export function SelectField({ label, options, value, onValueChange, compact }: SelectFieldProps) {
   const id = useId();
 
   return (
-    <div className={styles.field}>
+    <div className={styles.field} data-compact={compact}>
       <label htmlFor={id} className={styles.eyebrow}>
         {label}
       </label>
@@ -28,7 +29,12 @@ export function SelectField({ label, options, value, onValueChange }: SelectFiel
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Content position="popper" sideOffset={4} className={styles.selectMenu}>
+          <Select.Content
+            position="popper"
+            sideOffset={4}
+            className={styles.selectMenu}
+            data-compact={compact}
+          >
             <Select.Viewport>
               {options.map((option) => (
                 <Select.Item

@@ -37,3 +37,18 @@
   color: var(--design-muted);
   font-size: 0.75rem;
 }
+
+.option[data-compact='true'] {
+  min-height: 20px;
+  padding: 0;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+}
+.option[data-compact='true'] .checkbox {
+  width: 17px;
+  height: 17px;
+}
+.option[data-compact='true'] .optionTitle {
+  font: 500 0.875rem/1.25 var(--font-body);
+}

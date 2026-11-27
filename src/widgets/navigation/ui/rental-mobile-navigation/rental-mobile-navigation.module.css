@@ -1,0 +1,37 @@
+.mobileNav {
+  display: none;
+}
+
+@media (max-width: 820px) {
+  .mobileNav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    margin-top: 14px;
+    padding: 5px;
+    border: 1px solid color-mix(in srgb, var(--design-sand) 40%, transparent);
+    border-radius: 32px;
+    background: var(--design-surface);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--design-charcoal) 10%, transparent);
+  }
+  .mobileNav a {
+    display: grid;
+    gap: 2px;
+    min-height: 46px;
+    place-content: center;
+    justify-items: center;
+    border-radius: 26px;
+    color: var(--design-muted);
+    font-size: 0.625rem;
+    line-height: 1;
+  }
+  .mobileNav a:hover,
+  .mobileNav a[aria-current='page'] {
+    background: var(--design-selection-surface);
+    color: var(--design-pine);
+  }
+  .mobileNav svg {
+    width: 19px;
+    height: 19px;
+  }
+}

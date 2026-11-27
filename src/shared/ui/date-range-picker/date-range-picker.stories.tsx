@@ -31,3 +31,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Selected: Story = {};
 export const Empty: Story = { args: { value: null } };
+export const Catalog: Story = {
+  args: {
+    summary: '14 сен, 10:00 → 17 сен, 18:00',
+    shortSummary: '14–17 сентября',
+    duration: '3 дня',
+    allowSameDay: false,
+  },
+};

@@ -110,3 +110,14 @@
   gap: 12px;
   padding: 7px 12px 7px 16px;
 }
+
+.nav[data-flush='true'] {
+  min-height: 72px;
+  padding: 0;
+  border-radius: 0;
+}
+@media (max-width: 820px) {
+  .nav[data-flush='true'] {
+    min-height: 64px;
+  }
+}

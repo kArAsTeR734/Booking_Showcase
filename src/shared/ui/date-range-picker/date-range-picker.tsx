@@ -1,6 +1,6 @@
 'use client';
 
-import { CalendarDays, ChevronDown } from 'lucide-react';
+import { CalendarDays, ChevronDown, PencilLine } from 'lucide-react';
 import { Popover } from 'radix-ui';
 import { useId, useState, type FormEvent } from 'react';
 import { formatDateRange, type DateRange } from '../../lib';
@@ -12,23 +12,36 @@ type DateRangePickerProps = {
   value: DateRange | null;
   onValueChange: (value: DateRange) => void;
   label?: string;
+  summary?: string;
+  shortSummary?: string;
+  duration?: string;
+  header?: boolean;
+  allowSameDay?: boolean;
 };
 
 export function DateRangePicker({
   value,
   onValueChange,
   label = 'Период аренды',
+  summary,
+  shortSummary,
+  duration,
+  header = false,
+  allowSameDay = true,
 }: DateRangePickerProps) {
   const id = useId();
   const [open, setOpen] = useState(false);
   const [start, setStart] = useState('');
+  const [error, setError] = useState<string>();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const fields = new FormData(event.currentTarget);
     const end = fields.get('end');
 
-    if (typeof end === 'string' && start && end >= start) {
+    if (!allowSameDay && end === start) {
+      setError('Дата возврата должна быть позже даты выдачи.');
+    } else if (typeof end === 'string' && start && end >= start) {
       onValueChange({ start, end });
       setOpen(false);
     }
@@ -38,18 +51,38 @@ export function DateRangePicker({
     <Popover.Root
       open={open}
       onOpenChange={(next) => {
-        if (next) setStart(value?.start ?? '');
+        if (next) {
+          setStart(value?.start ?? '');
+          setError(undefined);
+        }
         setOpen(next);
       }}
     >
       <Popover.Trigger asChild>
-        <Button variant="outline" className={styles.trigger}>
+        <Button
+          variant={header ? 'ghost' : 'outline'}
+          className={styles.trigger}
+          data-header={header}
+          data-responsive={Boolean(shortSummary)}
+          aria-label={
+            summary || header ? `${label}. ${header ? shortSummary : summary}` : undefined
+          }
+        >
           <CalendarDays aria-hidden className={styles.calendar} />
-          <span className={styles.summary}>
-            <span className={styles.label}>{label}</span>
-            <span className={styles.value}>{value ? formatDateRange(value) : 'Выберите даты'}</span>
-          </span>
-          <ChevronDown aria-hidden className={styles.chevron} />
+          {header ? (
+            shortSummary
+          ) : (
+            <span className={styles.summary}>
+              <span className={styles.label}>{label}</span>
+              {duration && <span className={styles.duration}>{duration}</span>}
+              <span className={styles.value}>
+                {summary ?? (value ? formatDateRange(value) : 'Выберите даты')}
+              </span>
+              {shortSummary && <span className={styles.shortSummary}>{shortSummary}</span>}
+            </span>
+          )}
+          {!header && <ChevronDown aria-hidden className={styles.chevron} />}
+          {!header && shortSummary && <PencilLine aria-hidden className={styles.edit} />}
         </Button>
       </Popover.Trigger>
       <Popover.Portal>
@@ -61,7 +94,10 @@ export function DateRangePicker({
               type="date"
               label="Дата выдачи"
               value={start}
-              onChange={(event) => setStart(event.currentTarget.value)}
+              onChange={(event) => {
+                setStart(event.currentTarget.value);
+                setError(undefined);
+              }}
               required
             />
             <TextField
@@ -71,6 +107,8 @@ export function DateRangePicker({
               label="Дата возврата"
               defaultValue={value?.end}
               min={start || undefined}
+              error={error}
+              onChange={() => setError(undefined)}
               required
             />
             <Button type="submit" variant="secondary">

@@ -59,3 +59,24 @@
 .selectOption[data-disabled] {
   opacity: 0.55;
 }
+
+.field[data-compact='true'] .eyebrow {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.field[data-compact='true'] .selectTrigger {
+  min-height: 31px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+.field[data-compact='true'] .fieldIcon {
+  display: none;
+}
+.selectMenu[data-compact='true'] {
+  width: max(var(--radix-select-trigger-width), 160px);
+}

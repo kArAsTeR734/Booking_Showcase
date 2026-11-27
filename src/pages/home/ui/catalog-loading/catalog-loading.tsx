@@ -1,15 +1,19 @@
-import { ProductCardSkeleton } from '@/entities/product';
-import styles from '../home-page/home-page.module.css';
+import { CatalogResultsSkeleton } from '@/widgets/catalog-results';
+import layout from '../home-page/home-page.module.css';
+import styles from './catalog-loading.module.css';
 
 export function CatalogLoading() {
   return (
-    <main className={styles.page}>
-      <div role="status" className={styles.skeletons}>
-        <span className={styles.loadingMessage}>Загрузка каталога</span>
-        <ProductCardSkeleton />
-        <ProductCardSkeleton />
-        <ProductCardSkeleton />
-      </div>
-    </main>
+    <>
+      <div className={styles.loadingHeader} aria-hidden />
+      <main className={`${layout.container} ${layout.page}`} role="status">
+        <span className={styles.loadingMessage}>Загрузка каталога…</span>
+        <div className={styles.loadingIntro} aria-hidden />
+        <div className={layout.layout}>
+          <div className={styles.loadingFilters} aria-hidden />
+          <CatalogResultsSkeleton />
+        </div>
+      </main>
+    </>
   );
 }
