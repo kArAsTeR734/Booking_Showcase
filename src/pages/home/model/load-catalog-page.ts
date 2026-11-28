@@ -2,7 +2,6 @@ import { catalogHref, categories } from '@/entities/catalog';
 import { loadCatalog } from '@/entities/catalog/index.server';
 import { periodLabels } from '@/shared/lib';
 import type { CatalogProductCard } from '@/widgets/catalog-results';
-import { demoParams, demoProducts } from './catalog-demo';
 import {
   correctedPage,
   parseCatalogParams,
@@ -23,28 +22,6 @@ function normalizedQuery(raw: CatalogSearchParams) {
 }
 
 export async function loadCatalogPage(raw: CatalogSearchParams) {
-  if (raw.demo === '1') {
-    const products: CatalogProductCard[] = demoProducts.map((product) => ({
-      ...product,
-      imageSrc: '/images/rental-equipment.png',
-      unavailable: false,
-    }));
-    return {
-      params: demoParams,
-      demo: true,
-      products,
-      total: 24,
-      pages: 8,
-      range: periodLabels(demoParams.dates).range,
-      canonical: undefined,
-      sourceQuery: '',
-      notices: [
-        'Параметр page=99 заменён на безопасное значение 1. Даты и фильтры сохранены в ссылке.',
-      ],
-      updatedAt: undefined,
-    };
-  }
-
   const today = calendarDate.format(new Date());
   const { params: requested, notices } = parseCatalogParams(raw, safePeriod(today));
   const data = await loadCatalog(requested);
@@ -61,7 +38,6 @@ export async function loadCatalogPage(raw: CatalogSearchParams) {
 
   return {
     params,
-    demo: false,
     products,
     total: data?.total,
     pages: data ? Math.ceil(data.total / data.pageSize) : 0,

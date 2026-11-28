@@ -14,9 +14,6 @@
 }
 
 @media (max-width: 820px) {
-  .grid > li[data-desktop-only='true'] {
-    display: none;
-  }
   .grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;

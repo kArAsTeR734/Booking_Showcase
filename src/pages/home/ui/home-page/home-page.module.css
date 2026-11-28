@@ -37,9 +37,6 @@
   .notices {
     margin-bottom: 14px;
   }
-  .page[data-demo='true'] .notices {
-    display: none;
-  }
   .layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;

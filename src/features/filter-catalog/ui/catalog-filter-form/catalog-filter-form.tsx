@@ -2,7 +2,7 @@
 
 import { Search } from 'lucide-react';
 import { Button, OptionCheckbox, TextField } from '@/shared/ui';
-import { categories, categoryKeys, type CatalogParams, type Filters } from '@/entities/catalog';
+import { categories, categoryKeys, type CatalogParams } from '@/entities/catalog';
 import { useAvailableCategoryCounts } from '../../model/use-catalog-filter-counts';
 import { useCatalogFilterForm } from '../../model/use-catalog-filter-form';
 import styles from './catalog-filter-form.module.css';
@@ -13,7 +13,6 @@ export function CatalogFilterForm({
   total,
   expanded,
   visible,
-  demo,
   onClose,
 }: {
   id: string;
@@ -21,7 +20,6 @@ export function CatalogFilterForm({
   total?: number;
   expanded: boolean;
   visible: boolean;
-  demo?: boolean;
   onClose: () => void;
 }) {
   const { filters, setFilters, error, matchCount, pending, apply, reset } = useCatalogFilterForm(
@@ -30,19 +28,12 @@ export function CatalogFilterForm({
     onClose,
     visible,
   );
-  const availableCounts = useAvailableCategoryCounts(visible && !demo);
-  const filterCategories = demo
-    ? [
-        { value: 'tents', title: 'Палатки · 8' },
-        { value: 'backpacks', title: 'Рюкзаки · 12' },
-        { value: 'sup', title: 'SUP-борды · 6' },
-        { value: 'trekking', title: 'Трекинг · 18' },
-      ]
-    : categoryKeys.map((value) => {
-        const title = categories[value];
-        const count = availableCounts[value];
-        return { value, title: count === undefined ? title : `${title} · ${count}` };
-      });
+  const availableCounts = useAvailableCategoryCounts(visible);
+  const filterCategories = categoryKeys.map((value) => {
+    const title = categories[value];
+    const count = availableCounts[value];
+    return { value, title: count === undefined ? title : `${title} · ${count}` };
+  });
 
   return (
     <form id={id} className={styles.form} data-expanded={expanded} onSubmit={apply}>
@@ -60,12 +51,8 @@ export function CatalogFilterForm({
             compact
             title={title}
             checked={filters.category === value}
-            disabled={!Object.hasOwn(categories, value)}
             onCheckedChange={(checked) =>
-              setFilters({
-                ...filters,
-                category: checked ? (value as Filters['category']) : undefined,
-              })
+              setFilters({ ...filters, category: checked ? value : undefined })
             }
           />
         ))}
@@ -78,15 +65,6 @@ export function CatalogFilterForm({
           checked={!!filters.available}
           onCheckedChange={(checked) => setFilters({ ...filters, available: checked || undefined })}
         />
-        {demo && (
-          <OptionCheckbox
-            compact
-            title="Можно заменить"
-            checked={false}
-            disabled
-            onCheckedChange={() => {}}
-          />
-        )}
       </fieldset>
       <fieldset className={styles.group}>
         <legend>Цена за день</legend>

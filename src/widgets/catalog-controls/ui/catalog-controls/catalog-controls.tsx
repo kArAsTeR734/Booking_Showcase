@@ -9,15 +9,7 @@ import { CatalogSort } from '@/features/sort-catalog';
 import { useCatalogFiltersVisibility } from '../../model/use-catalog-filters-visibility';
 import styles from './catalog-controls.module.css';
 
-export function CatalogControls({
-  params,
-  total,
-  demo,
-}: {
-  params: CatalogParams;
-  total?: number;
-  demo?: boolean;
-}) {
+export function CatalogControls({ params, total }: { params: CatalogParams; total?: number }) {
   const id = useId();
   const [expanded, setExpanded] = useState(false);
   const filtersVisible = useCatalogFiltersVisibility(expanded);
@@ -25,7 +17,6 @@ export function CatalogControls({
     Boolean,
   ).length;
   const appliedFiltersKey = JSON.stringify([
-    demo,
     params.category,
     params.available,
     params.minPrice,
@@ -41,7 +32,7 @@ export function CatalogControls({
           aria-expanded={expanded}
           aria-controls={id}
         >
-          <SlidersHorizontal aria-hidden /> Фильтры{count > 0 && ` · ${demo ? 2 : count}`}
+          <SlidersHorizontal aria-hidden /> Фильтры{count > 0 && ` · ${count}`}
         </Button>
         {params.category && (
           <FilterChip active readOnly>
@@ -57,7 +48,6 @@ export function CatalogControls({
         total={total}
         expanded={expanded}
         visible={filtersVisible}
-        demo={demo}
         onClose={() => setExpanded(false)}
       />
     </aside>

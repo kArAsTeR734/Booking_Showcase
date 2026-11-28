@@ -1,15 +1,7 @@
 import { availablePositions, positions, type CatalogParams } from '@/entities/catalog';
 import { CatalogPeriod } from '@/features/select-catalog-period';
 import styles from './catalog-intro.module.css';
-export function CatalogIntro({
-  params,
-  total,
-  periodSummary,
-}: {
-  params: CatalogParams;
-  total?: number;
-  periodSummary?: string;
-}) {
+export function CatalogIntro({ params, total }: { params: CatalogParams; total?: number }) {
   return (
     <div className={styles.intro}>
       <div>
@@ -29,7 +21,7 @@ export function CatalogIntro({
         )}
       </div>
       <div id="catalog-period" className={styles.period}>
-        <CatalogPeriod params={params} desktopSummary={periodSummary} />
+        <CatalogPeriod params={params} />
       </div>
     </div>
   );

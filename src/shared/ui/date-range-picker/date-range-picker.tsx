@@ -12,7 +12,6 @@ type DateRangePickerProps = {
   value: DateRange | null;
   onValueChange: (value: DateRange) => void;
   label?: string;
-  desktopSummary?: string;
   shortSummary?: string;
   duration?: string;
   header?: boolean;
@@ -24,7 +23,6 @@ export function DateRangePicker({
   value,
   onValueChange,
   label = 'Период аренды',
-  desktopSummary,
   shortSummary,
   duration,
   header = false,
@@ -69,11 +67,7 @@ export function DateRangePicker({
           className={styles.trigger}
           data-header={header}
           data-responsive={Boolean(shortSummary)}
-          aria-label={
-            desktopSummary || shortSummary || header
-              ? `${label}. ${header ? rangeSummary : (desktopSummary ?? rangeSummary)}`
-              : undefined
-          }
+          aria-label={shortSummary || header ? `${label}. ${rangeSummary}` : undefined}
         >
           <CalendarDays aria-hidden className={styles.calendar} />
           {header ? (
@@ -82,7 +76,7 @@ export function DateRangePicker({
             <span className={styles.summary}>
               <span className={styles.label}>{label}</span>
               {duration && <span className={styles.duration}>{duration}</span>}
-              <span className={styles.value}>{desktopSummary ?? rangeSummary}</span>
+              <span className={styles.value}>{rangeSummary}</span>
               {shortSummary && <span className={styles.shortSummary}>{shortSummary}</span>}
             </span>
           )}

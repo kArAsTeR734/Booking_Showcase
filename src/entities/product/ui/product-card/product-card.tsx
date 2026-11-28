@@ -15,8 +15,6 @@ type ProductCardProps = {
   href: string;
   availability?: string;
   unavailable?: boolean;
-  mobileCategory?: string;
-  mobileDetails?: string;
   catalog?: boolean;
 };
 
@@ -31,8 +29,6 @@ export function ProductCard({
   href,
   availability,
   unavailable = false,
-  mobileCategory = category,
-  mobileDetails = details,
   catalog = false,
 }: ProductCardProps) {
   return (
@@ -58,7 +54,7 @@ export function ProductCard({
         </p>
         {catalog && (
           <p className={styles.category} data-mobile>
-            {mobileCategory}
+            {category}
             {availability && ` · ${availability}`}
           </p>
         )}
@@ -67,14 +63,7 @@ export function ProductCard({
             {name}
           </Link>
         </h3>
-        <p className={styles.meta} data-desktop>
-          {details}
-        </p>
-        {catalog && (
-          <p className={styles.meta} data-mobile>
-            {mobileDetails}
-          </p>
-        )}
+        <p className={styles.meta}>{details}</p>
         <div className={styles.footer}>
           <div className={styles.prices}>
             <strong className={styles.price}>{rate}</strong>

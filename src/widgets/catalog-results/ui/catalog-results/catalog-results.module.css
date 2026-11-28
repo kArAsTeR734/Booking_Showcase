@@ -30,9 +30,6 @@
   .sort {
     display: none;
   }
-  .paginationWrap[data-demo='true'] {
-    display: none;
-  }
   .resultsHeader {
     position: absolute;
     width: 1px;

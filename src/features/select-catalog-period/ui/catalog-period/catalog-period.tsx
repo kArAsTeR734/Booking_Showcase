@@ -7,11 +7,9 @@ import { useRouteTransition } from '@/shared/routing';
 export function CatalogPeriod({
   params,
   header = false,
-  desktopSummary,
 }: {
   params: CatalogParams;
   header?: boolean;
-  desktopSummary?: string;
 }) {
   const { navigate, pending } = useRouteTransition();
   const { range, duration } = periodLabels(params.dates);
@@ -21,7 +19,6 @@ export function CatalogPeriod({
       disabled={pending}
       header={header}
       allowSameDay={false}
-      desktopSummary={desktopSummary}
       shortSummary={range}
       duration={duration}
       onValueChange={(dates) => navigate(catalogHref({ ...params, dates, page: 1 }))}

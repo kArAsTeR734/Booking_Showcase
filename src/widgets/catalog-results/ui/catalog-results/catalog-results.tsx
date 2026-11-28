@@ -23,7 +23,6 @@ export function CatalogResults({
   range,
   products,
   updatedAt,
-  demo,
 }: {
   params: CatalogParams;
   total?: number;
@@ -31,7 +30,6 @@ export function CatalogResults({
   range: string;
   products: CatalogProductCard[];
   updatedAt?: string;
-  demo: boolean;
 }) {
   return (
     <section className={styles.results} aria-labelledby="catalog-results">
@@ -42,25 +40,21 @@ export function CatalogResults({
               ? 'Выдача'
               : `${params.available ? 'Доступно' : 'Найдено'} ${positions(total)}`}
           </h2>
-          {demo ? (
-            <p>Наличие обновлено 2 минуты назад</p>
-          ) : (
-            updatedAt && (
-              <p>
-                Наличие обновлено в{' '}
-                <time dateTime={updatedAt}>{timeFormat.format(new Date(updatedAt))}</time>
-              </p>
-            )
+          {updatedAt && (
+            <p>
+              Наличие обновлено в{' '}
+              <time dateTime={updatedAt}>{timeFormat.format(new Date(updatedAt))}</time>
+            </p>
           )}
         </div>
         <div className={styles.sort}>
           <CatalogSort params={params} />
         </div>
       </div>
-      <CatalogAppliedFilters params={params} range={range} demo={demo} />
+      <CatalogAppliedFilters params={params} range={range} />
       <CatalogResultsStatus>
         {products.length > 0 ? (
-          <CatalogProductGrid products={products} demo={demo} />
+          <CatalogProductGrid products={products} />
         ) : total === 0 ? (
           <StatePanel
             title="По выбранным параметрам ничего не найдено"
@@ -83,7 +77,7 @@ export function CatalogResults({
           </StatePanel>
         )}
         {pages > 1 && (
-          <div className={styles.paginationWrap} data-demo={demo}>
+          <div className={styles.paginationWrap}>
             <CatalogPagination params={params} total={pages} />
           </div>
         )}

@@ -8,7 +8,4 @@ export type CatalogProductCard = {
   imageSrc: string;
   availability: string;
   unavailable: boolean;
-  mobile?: boolean;
-  mobileCategory?: string;
-  mobileDetails?: string;
 };

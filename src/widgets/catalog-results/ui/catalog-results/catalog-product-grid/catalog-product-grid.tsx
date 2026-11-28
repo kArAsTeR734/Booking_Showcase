@@ -3,17 +3,11 @@ import { ROUTES } from '@/shared/const';
 import type { CatalogProductCard } from '../../../model/catalog-product-card';
 import { rubles } from '@/shared/lib';
 import styles from './catalog-product-grid.module.css';
-export function CatalogProductGrid({
-  products,
-  demo,
-}: {
-  products: CatalogProductCard[];
-  demo?: boolean;
-}) {
+export function CatalogProductGrid({ products }: { products: CatalogProductCard[] }) {
   return (
     <ul className={styles.grid}>
       {products.map((product) => (
-        <li key={product.id} data-desktop-only={demo && !product.mobile}>
+        <li key={product.id}>
           <ProductCard
             catalog
             {...product}

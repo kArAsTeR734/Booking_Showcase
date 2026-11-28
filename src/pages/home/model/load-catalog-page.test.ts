@@ -5,16 +5,29 @@ vi.mock('server-only', () => ({}));
 
 afterEach(() => vi.unstubAllGlobals());
 
-it('loads the reference layout without requesting products', async () => {
-  const fetchMock = vi.fn();
+it('builds the catalog from the mock API response', async () => {
+  const product = {
+    id: 'tent',
+    name: 'Палатка',
+    category: 'tents',
+    details: '3 места',
+    dailyRate: 900,
+    deposit: 2000,
+    available: false,
+    imageSrc: '/images/rental-equipment.png',
+  };
+  const fetchMock = vi
+    .fn()
+    .mockResolvedValue(Response.json({ items: [product], total: 3, pageSize: 2, page: 1 }));
   vi.stubGlobal('fetch', fetchMock);
 
-  const page = await loadCatalogPage({ demo: '1' });
+  const page = await loadCatalogPage({ start: '2026-09-14', end: '2026-09-17' });
 
-  expect(fetchMock).not.toHaveBeenCalled();
-  expect(page).toMatchObject({ total: 24, pages: 8, canonical: undefined });
-  expect(page.products).toHaveLength(6);
-  expect(page.products.filter((product) => product.mobile)).toHaveLength(2);
+  expect(fetchMock).toHaveBeenCalledOnce();
+  expect(page).toMatchObject({ total: 3, pages: 2, canonical: undefined });
+  expect(page.products).toEqual([
+    { ...product, category: 'Палатки', availability: 'Недоступно', unavailable: true },
+  ]);
 });
 
 it('builds a canonical URL and notice after the server corrects the page', async () => {

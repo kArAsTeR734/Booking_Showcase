@@ -19,19 +19,8 @@ const navigationLinks = [
 ];
 
 export async function HomePage({ searchParams }: { searchParams: Promise<CatalogSearchParams> }) {
-  const {
-    params,
-    total,
-    pages,
-    range,
-    canonical,
-    sourceQuery,
-    notices,
-    products,
-    updatedAt,
-    demo,
-  } = await loadCatalogPage(await searchParams);
-  const periodSummary = demo ? '14 сен, 10:00 → 17 сен, 18:00' : undefined;
+  const { params, total, pages, range, canonical, sourceQuery, notices, products, updatedAt } =
+    await loadCatalogPage(await searchParams);
 
   return (
     <RouteTransitionProvider>
@@ -45,13 +34,12 @@ export async function HomePage({ searchParams }: { searchParams: Promise<Catalog
             dates={{ href: '#catalog-period', label: range }}
             dateControl={<CatalogPeriod params={params} header />}
             cartHref={ROUTES.cart}
-            cartCount={demo ? 2 : undefined}
             searchHref="#catalog-filters"
           />
         </div>
       </header>
-      <main className={`${styles.container} ${styles.page}`} data-demo={demo}>
-        <CatalogIntro params={params} total={total} periodSummary={periodSummary} />
+      <main className={`${styles.container} ${styles.page}`}>
+        <CatalogIntro params={params} total={total} />
         {notices.length > 0 && (
           <div className={styles.notices}>
             <WarningAlert compact announce>
@@ -62,11 +50,10 @@ export async function HomePage({ searchParams }: { searchParams: Promise<Catalog
           </div>
         )}
         <div className={styles.layout}>
-          <CatalogControls params={params} total={total} demo={demo} />
+          <CatalogControls params={params} total={total} />
           <CatalogResults
             params={params}
             total={total}
-            demo={demo}
             pages={pages}
             range={range}
             products={products}

@@ -3,15 +3,7 @@ import { categories, type CatalogParams } from '@/entities/catalog';
 import { FilterChip } from '@/shared/ui';
 import { rubles } from '@/shared/lib';
 import styles from './catalog-applied-filters.module.css';
-export function CatalogAppliedFilters({
-  params,
-  range,
-  demo,
-}: {
-  params: CatalogParams;
-  range: string;
-  demo?: boolean;
-}) {
+export function CatalogAppliedFilters({ params, range }: { params: CatalogParams; range: string }) {
   return (
     <div className={styles.chips}>
       <FilterChip active readOnly icon={<CalendarDays aria-hidden />}>
@@ -27,12 +19,12 @@ export function CatalogAppliedFilters({
           до {rubles(Number(params.maxPrice))}
         </FilterChip>
       )}
-      {!demo && params.minPrice && (
+      {params.minPrice && (
         <FilterChip active readOnly icon={<Tag aria-hidden />}>
           от {rubles(Number(params.minPrice))}
         </FilterChip>
       )}
-      {!demo && params.available && (
+      {params.available && (
         <FilterChip active readOnly icon={<ArrowDownUp aria-hidden />}>
           Только доступное
         </FilterChip>
