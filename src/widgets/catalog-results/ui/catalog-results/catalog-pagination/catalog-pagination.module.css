@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.pagination [data-slot='button'] {
+  width: 36px;
+  height: 36px;
+}
+.pagination [data-variant='outline'] {
+  border-color: var(--design-border);
+  background: var(--design-surface);
+}
+.pagination > span {
+  min-width: 18px;
+  text-align: center;
+  color: var(--design-muted);
+}

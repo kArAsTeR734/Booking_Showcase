@@ -1,0 +1,27 @@
+.controls {
+  min-width: 0;
+}
+.mobileToolbar {
+  display: none;
+}
+@media (max-width: 820px) {
+  .mobileToolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .mobileToolbar > button {
+    min-height: 33px;
+    padding-inline: 11px;
+    border-radius: 24px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  .mobileToolbar > span {
+    padding: 5px 11px;
+    min-height: 30px;
+    border-color: transparent;
+    font-weight: 650;
+  }
+}

@@ -6,7 +6,7 @@ export function StatusBadge({
   variant = 'success',
 }: {
   children: ReactNode;
-  variant?: 'success' | 'available';
+  variant?: 'success' | 'available' | 'unavailable';
 }) {
   return (
     <span className={styles.badge} data-variant={variant}>

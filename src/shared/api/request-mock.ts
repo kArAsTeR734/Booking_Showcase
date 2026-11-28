@@ -6,8 +6,8 @@ export class MockApiError extends Error {
   }
 }
 
-export async function requestMock(path: `/${string}`, init?: RequestInit) {
-  const response = await fetch(`${mockBaseUrl}${path}`, init);
+export async function requestMock(path: `/${string}`, init?: RequestInit, origin = '') {
+  const response = await fetch(`${origin}${mockBaseUrl}${path}`, init);
   if (!response.ok) throw new MockApiError(response.status);
   return response;
 }

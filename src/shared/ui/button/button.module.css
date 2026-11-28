@@ -12,7 +12,7 @@
   transition: background-color 150ms ease;
 }
 
-.button:disabled {
+.button:is(:disabled, [aria-disabled='true']) {
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -28,14 +28,14 @@
   background: var(--design-amber);
   color: var(--design-charcoal);
 }
-.primary:hover:not(:disabled) {
+.primary:hover:not(:disabled, [aria-disabled='true']) {
   background: var(--design-amber-soft);
 }
 .secondary {
   background: var(--design-pine);
   color: var(--design-surface);
 }
-.secondary:hover:not(:disabled) {
+.secondary:hover:not(:disabled, [aria-disabled='true']) {
   background: var(--design-pine-deep);
 }
 .outline {
@@ -43,8 +43,8 @@
   background: var(--design-surface);
   color: var(--design-pine);
 }
-.outline:hover:not(:disabled),
-.ghost:hover:not(:disabled) {
+.outline:hover:not(:disabled, [aria-disabled='true']),
+.ghost:hover:not(:disabled, [aria-disabled='true']) {
   background: var(--design-sand);
 }
 .ghost {
@@ -55,7 +55,7 @@
   background: var(--design-error-surface);
   color: var(--design-error);
 }
-.danger:hover:not(:disabled) {
+.danger:hover:not(:disabled, [aria-disabled='true']) {
   background: color-mix(in srgb, var(--design-error) 12%, var(--design-error-surface));
 }
 .link {

@@ -22,3 +22,11 @@
   border-radius: 50%;
   background: var(--design-success);
 }
+
+.badge[data-variant='unavailable'] {
+  background: var(--design-error-surface);
+  color: var(--design-error);
+}
+.badge[data-variant='unavailable'] .dot {
+  background: var(--design-error);
+}

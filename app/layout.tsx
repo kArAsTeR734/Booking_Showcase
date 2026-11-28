@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { QueryProvider } from '@/app/prodviders';
-import { UserSessionProvider } from '@/entities/user';
+import { AppProviders } from '@/app/bootstrap';
 import '@fontsource-variable/archivo';
 import '@fontsource-variable/source-sans-3';
 import '@/app/styles/globals.css';
@@ -14,9 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ru">
       <body>
-        <QueryProvider>
-          <UserSessionProvider>{children}</UserSessionProvider>
-        </QueryProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

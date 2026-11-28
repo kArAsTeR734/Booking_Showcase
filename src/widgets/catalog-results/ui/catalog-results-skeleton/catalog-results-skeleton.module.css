@@ -1,0 +1,5 @@
+@media (max-width: 820px) {
+  .skeletons > :nth-child(3) {
+    display: none;
+  }
+}

@@ -16,3 +16,11 @@
   width: 16px;
   height: 16px;
 }
+
+.chip.readOnly {
+  display: inline-flex;
+  align-items: center;
+  border-color: var(--design-pine);
+  background: var(--design-selection-surface);
+  color: var(--design-pine);
+}

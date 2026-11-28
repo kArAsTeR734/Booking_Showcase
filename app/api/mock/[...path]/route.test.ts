@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { GET, POST } from './route';
 
 function request(method: 'GET' | 'POST', path: string, headers?: HeadersInit, body?: unknown) {
@@ -23,6 +23,17 @@ async function login() {
 }
 
 describe('rental HTTP mock', () => {
+  it('serves the public catalog list when running the production build', async () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    try {
+      expect((await request('GET', 'products')).status).toBe(200);
+      expect((await request('GET', 'products/tent')).status).toBe(404);
+      expect((await request('GET', 'bookings')).status).toBe(404);
+      expect((await request('POST', 'session/login')).status).toBe(404);
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
   it('serves sorted and paginated catalog fixtures and returns 404 for unknown products', async () => {
     const response = await request('GET', 'products?available=true&sort=price-asc&page=2');
     expect(await response.json()).toMatchObject({
@@ -34,6 +45,16 @@ describe('rental HTTP mock', () => {
     const empty = await request('GET', 'products?category=gear&minPrice=1000');
     expect(await empty.json()).toMatchObject({ items: [], total: 0 });
     expect((await request('GET', 'products/unknown')).status).toBe(404);
+  });
+
+  it('counts available positions by category and matches both price bounds', async () => {
+    const gear = await request('GET', 'products?category=gear');
+    const availableGear = await request('GET', 'products?category=gear&available=true');
+    const priceRange = await request('GET', 'products?minPrice=1200&maxPrice=1700');
+
+    expect(await gear.json()).toMatchObject({ total: 2 });
+    expect(await availableGear.json()).toMatchObject({ total: 1 });
+    expect(await priceRange.json()).toMatchObject({ total: 1, items: [{ id: 'sup' }] });
   });
 
   it('returns 401 for missing or simulated expired sessions and allows a retry after refresh', async () => {

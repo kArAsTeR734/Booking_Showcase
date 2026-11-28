@@ -14,6 +14,10 @@ type ProductCardProps = {
   deposit: string;
   href: string;
   availability?: string;
+  unavailable?: boolean;
+  mobileCategory?: string;
+  mobileDetails?: string;
+  catalog?: boolean;
 };
 
 export function ProductCard({
@@ -26,25 +30,51 @@ export function ProductCard({
   deposit,
   href,
   availability,
+  unavailable = false,
+  mobileCategory = category,
+  mobileDetails = details,
+  catalog = false,
 }: ProductCardProps) {
   return (
-    <article className={styles.card}>
+    <article className={styles.card} data-catalog={catalog}>
       <div className={styles.image}>
-        <Image src={imageSrc} alt={imageAlt} fill sizes="(max-width: 360px) 100vw, 310px" />
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          fill
+          sizes={catalog ? '(max-width: 820px) 116px, (max-width: 1150px) 40vw, 350px' : '310px'}
+        />
         {availability && (
           <div className={styles.availability}>
-            <StatusBadge variant="available">{availability}</StatusBadge>
+            <StatusBadge variant={unavailable ? 'unavailable' : 'available'}>
+              {availability}
+            </StatusBadge>
           </div>
         )}
       </div>
       <div className={styles.body}>
-        <p className={styles.category}>{category}</p>
+        <p className={styles.category} data-desktop>
+          {category}
+        </p>
+        {catalog && (
+          <p className={styles.category} data-mobile>
+            {mobileCategory}
+            {availability && ` · ${availability}`}
+          </p>
+        )}
         <h3 className={styles.title}>
           <Link href={href} className={styles.link}>
             {name}
           </Link>
         </h3>
-        <p className={styles.meta}>{details}</p>
+        <p className={styles.meta} data-desktop>
+          {details}
+        </p>
+        {catalog && (
+          <p className={styles.meta} data-mobile>
+            {mobileDetails}
+          </p>
+        )}
         <div className={styles.footer}>
           <div className={styles.prices}>
             <strong className={styles.price}>{rate}</strong>

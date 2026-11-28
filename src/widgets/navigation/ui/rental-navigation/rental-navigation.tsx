@@ -1,5 +1,6 @@
 import { CalendarDays, MountainSnow, Search, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { Button } from '@/shared/ui';
 import styles from './rental-navigation.module.css';
 
@@ -8,9 +9,11 @@ type RentalNavigationProps = {
   links: readonly { href: string; label: string; current?: boolean }[];
   dates: { href: string; label: string };
   cartHref: string;
-  cartCount: number;
+  cartCount?: number;
   searchHref: string;
   compact?: boolean;
+  flush?: boolean;
+  dateControl?: ReactNode;
 };
 
 export function RentalNavigation({
@@ -21,14 +24,17 @@ export function RentalNavigation({
   cartCount,
   searchHref,
   compact = false,
+  flush = false,
+  dateControl,
 }: RentalNavigationProps) {
-  const cartLabel = `Корзина · ${cartCount}`;
+  const cartLabel = cartCount === undefined ? 'Корзина' : `Корзина · ${cartCount}`;
 
   return (
     <nav
       aria-label={compact ? 'Мобильная навигация проката' : 'Навигация проката'}
       className={styles.nav}
       data-compact={compact}
+      data-flush={flush}
     >
       <Link href={homeHref} className={styles.brand} aria-label="Северный прокат">
         <MountainSnow aria-hidden className={styles.brandIcon} />
@@ -45,12 +51,14 @@ export function RentalNavigation({
         ))}
       </ul>
       <div className={styles.desktopTools}>
-        <Button asChild variant="ghost" size="sm" className={styles.date}>
-          <Link href={dates.href}>
-            <CalendarDays aria-hidden />
-            {dates.label}
-          </Link>
-        </Button>
+        {dateControl ?? (
+          <Button asChild variant="ghost" size="sm" className={styles.date}>
+            <Link href={dates.href}>
+              <CalendarDays aria-hidden />
+              {dates.label}
+            </Link>
+          </Button>
+        )}
         <Button asChild size="sm" className={styles.cart}>
           <Link href={cartHref}>
             <ShoppingBag aria-hidden />

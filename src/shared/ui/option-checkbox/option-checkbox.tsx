@@ -12,6 +12,7 @@ type OptionCheckboxProps = {
   onCheckedChange: (checked: boolean) => void;
   name?: string;
   disabled?: boolean;
+  compact?: boolean;
 };
 
 export function OptionCheckbox({
@@ -21,11 +22,12 @@ export function OptionCheckbox({
   onCheckedChange,
   name,
   disabled,
+  compact,
 }: OptionCheckboxProps) {
   const id = useId();
 
   return (
-    <label className={styles.option} htmlFor={id}>
+    <label className={styles.option} data-compact={compact} htmlFor={id}>
       <Checkbox.Root
         id={id}
         checked={checked}

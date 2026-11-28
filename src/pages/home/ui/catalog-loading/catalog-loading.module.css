@@ -1,0 +1,39 @@
+.loadingHeader {
+  background: var(--design-pine-deep);
+}
+.loadingHeader {
+  height: 72px;
+}
+.loadingIntro,
+.loadingFilters {
+  background: var(--design-sand);
+  border-radius: var(--radius-card);
+}
+.loadingIntro {
+  height: 100px;
+  margin-bottom: 22px;
+}
+.loadingFilters {
+  height: 360px;
+}
+.loadingMessage {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 820px) {
+  .loadingFilters {
+    display: none;
+  }
+  .loadingHeader {
+    height: 64px;
+  }
+  .loadingIntro {
+    height: 150px;
+    margin-bottom: 14px;
+  }
+}

@@ -4,6 +4,13 @@ import { MockApiError, requestMock } from './request-mock';
 afterEach(() => vi.unstubAllGlobals());
 
 describe('requestMock', () => {
+  it('uses an explicit origin for server requests', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response());
+    vi.stubGlobal('fetch', fetchMock);
+
+    await requestMock('/products', undefined, 'http://127.0.0.1:3000');
+    expect(fetchMock).toHaveBeenCalledWith('http://127.0.0.1:3000/api/mock/products', undefined);
+  });
   it('добавляет базовый путь и передаёт параметры fetch', async () => {
     const response = new Response(null, { status: 204 });
     const fetchMock = vi.fn().mockResolvedValue(response);

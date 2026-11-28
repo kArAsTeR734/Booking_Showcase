@@ -10,17 +10,26 @@ type SelectFieldProps = {
   options: readonly { value: string; label: string; disabled?: boolean }[];
   value: string;
   onValueChange: (value: string) => void;
+  compact?: boolean;
+  disabled?: boolean;
 };
 
-export function SelectField({ label, options, value, onValueChange }: SelectFieldProps) {
+export function SelectField({
+  label,
+  options,
+  value,
+  onValueChange,
+  compact,
+  disabled,
+}: SelectFieldProps) {
   const id = useId();
 
   return (
-    <div className={styles.field}>
+    <div className={styles.field} data-compact={compact}>
       <label htmlFor={id} className={styles.eyebrow}>
         {label}
       </label>
-      <Select.Root value={value} onValueChange={onValueChange}>
+      <Select.Root value={value} onValueChange={onValueChange} disabled={disabled}>
         <Select.Trigger id={id} className={styles.selectTrigger}>
           <Select.Value />
           <Select.Icon asChild>
@@ -28,13 +37,18 @@ export function SelectField({ label, options, value, onValueChange }: SelectFiel
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Content position="popper" sideOffset={4} className={styles.selectMenu}>
+          <Select.Content
+            position="popper"
+            sideOffset={4}
+            className={styles.selectMenu}
+            data-compact={compact}
+          >
             <Select.Viewport>
               {options.map((option) => (
                 <Select.Item
                   key={option.value}
                   value={option.value}
-                  disabled={option.disabled}
+                  disabled={disabled || option.disabled}
                   className={styles.selectOption}
                 >
                   <Select.ItemText>{option.label}</Select.ItemText>
