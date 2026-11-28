@@ -1,0 +1,4 @@
+.page {
+  width: min(100% - 36px, 600px);
+  margin: 80px auto;
+}

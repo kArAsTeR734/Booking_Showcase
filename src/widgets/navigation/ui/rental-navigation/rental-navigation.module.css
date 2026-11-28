@@ -34,7 +34,7 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.links a[aria-current] {
+.links a[data-active='true'] {
   color: var(--design-surface);
   font-weight: 600;
 }

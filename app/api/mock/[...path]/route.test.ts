@@ -27,7 +27,8 @@ describe('rental HTTP mock', () => {
     vi.stubEnv('NODE_ENV', 'production');
     try {
       expect((await request('GET', 'products')).status).toBe(200);
-      expect((await request('GET', 'products/tent')).status).toBe(404);
+      expect((await request('GET', 'products/tent')).status).toBe(200);
+      expect((await request('GET', 'products/unknown')).status).toBe(404);
       expect((await request('GET', 'bookings')).status).toBe(404);
       expect((await request('POST', 'session/login')).status).toBe(404);
     } finally {
@@ -45,6 +46,21 @@ describe('rental HTTP mock', () => {
     const empty = await request('GET', 'products?category=gear&minPrice=1000');
     expect(await empty.json()).toMatchObject({ items: [], total: 0 });
     expect((await request('GET', 'products/unknown')).status).toBe(404);
+  });
+
+  it('includes characteristics and pickup address in product details', async () => {
+    const response = await request('GET', 'products/backpack');
+    expect(await response.json()).toMatchObject({
+      id: 'backpack',
+      dailyRate: 400,
+      deposit: 1500,
+      pickupAddress: 'ул. Лесная, 18',
+      characteristics: [
+        { label: 'Вес', value: '1,4 кг' },
+        { label: 'Объём', value: '45 л' },
+        { label: 'Водостойкость чехла', value: '5 000 мм' },
+      ],
+    });
   });
 
   it('counts available positions by category and matches both price bounds', async () => {

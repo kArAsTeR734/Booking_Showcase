@@ -8,7 +8,7 @@ const meta = {
   args: {
     homeHref: '#home',
     links: [
-      { href: '#catalog', label: 'Каталог', current: true },
+      { href: '#catalog', label: 'Каталог', current: 'page' },
       { href: '#dates', label: 'Как получить' },
       { href: '#booking', label: 'История' },
     ],

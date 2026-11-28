@@ -1,5 +1,10 @@
 const products = [
   {
+    characteristics: [
+      { label: 'Вместимость', value: '2 места' },
+      { label: 'Вес', value: '2,8 кг' },
+      { label: 'Водостойкость тента', value: '3 000 мм' },
+    ],
     id: 'tent',
     name: 'Палатка на двоих',
     category: 'tents',
@@ -9,6 +14,11 @@ const products = [
     available: true,
   },
   {
+    characteristics: [
+      { label: 'Длина', value: '320 см' },
+      { label: 'Нагрузка', value: '120 кг' },
+      { label: 'Комплект', value: 'весло и насос' },
+    ],
     id: 'sup',
     name: 'Сапборд',
     category: 'sup',
@@ -18,6 +28,11 @@ const products = [
     available: true,
   },
   {
+    characteristics: [
+      { label: 'Вес', value: '1,4 кг' },
+      { label: 'Объём', value: '45 л' },
+      { label: 'Водостойкость чехла', value: '5 000 мм' },
+    ],
     id: 'backpack',
     name: 'Походный рюкзак',
     category: 'gear',
@@ -27,6 +42,11 @@ const products = [
     available: true,
   },
   {
+    characteristics: [
+      { label: 'Температура комфорта', value: '+5 °C' },
+      { label: 'Вес', value: '1,2 кг' },
+      { label: 'Длина', value: '210 см' },
+    ],
     id: 'sleeping-bag',
     name: 'Спальный мешок',
     category: 'gear',
@@ -38,6 +58,7 @@ const products = [
 ].map((product) => ({
   ...product,
   imageSrc: '/images/rental-equipment.png',
+  pickupAddress: 'ул. Лесная, 18',
   pickupRules: 'Получение и возврат в пункте проката по номеру брони.',
 }));
 

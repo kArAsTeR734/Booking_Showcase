@@ -6,18 +6,20 @@ export function StatePanel({
   children,
   icon,
   action,
+  headingAs: Heading = 'h3',
 }: {
   title: string;
   children: ReactNode;
   icon: ReactNode;
   action?: ReactNode;
+  headingAs?: 'h1' | 'h2' | 'h3';
 }) {
   return (
     <section className={styles.panel}>
       <span className={styles.stateIcon} aria-hidden>
         {icon}
       </span>
-      <h3 className={styles.stateTitle}>{title}</h3>
+      <Heading className={styles.stateTitle}>{title}</Heading>
       <div className={styles.stateText}>{children}</div>
       {action && <div className={styles.stateAction}>{action}</div>}
     </section>

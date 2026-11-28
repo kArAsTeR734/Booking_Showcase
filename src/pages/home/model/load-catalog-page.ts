@@ -1,15 +1,9 @@
 import { catalogHref, categories } from '@/entities/catalog';
 import { loadCatalog } from '@/entities/catalog/index.server';
 import { periodLabels } from '@/shared/lib';
+import { currentSafePeriod } from '@/entities/rental-period';
 import type { CatalogProductCard } from '@/widgets/catalog-results';
-import {
-  correctedPage,
-  parseCatalogParams,
-  safePeriod,
-  type CatalogSearchParams,
-} from './catalog-params';
-
-const calendarDate = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Volgograd' });
+import { correctedPage, parseCatalogParams, type CatalogSearchParams } from './catalog-params';
 
 function normalizedQuery(raw: CatalogSearchParams) {
   const query = new URLSearchParams();
@@ -22,8 +16,7 @@ function normalizedQuery(raw: CatalogSearchParams) {
 }
 
 export async function loadCatalogPage(raw: CatalogSearchParams) {
-  const today = calendarDate.format(new Date());
-  const { params: requested, notices } = parseCatalogParams(raw, safePeriod(today));
+  const { params: requested, notices } = parseCatalogParams(raw, currentSafePeriod());
   const data = await loadCatalog(requested);
   const params = { ...requested, page: data?.page ?? requested.page };
   if (data?.correctedFrom !== undefined) notices.push(correctedPage(String(data.correctedFrom)));

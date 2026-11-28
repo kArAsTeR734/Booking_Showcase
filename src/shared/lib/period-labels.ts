@@ -1,4 +1,5 @@
 import type { DateRange } from './date-range';
+import { periodDays } from './period-days';
 
 const date = new Intl.DateTimeFormat('ru-RU', { month: 'long', day: 'numeric', timeZone: 'UTC' });
 const dateWithYear = new Intl.DateTimeFormat('ru-RU', { dateStyle: 'long', timeZone: 'UTC' });
@@ -10,6 +11,6 @@ export function periodLabels(dates: DateRange) {
   const formatter = start.getUTCFullYear() === end.getUTCFullYear() ? date : dateWithYear;
   return {
     range: formatter.formatRange(start, end),
-    duration: day.format((end.getTime() - start.getTime()) / 86_400_000),
+    duration: day.format(periodDays(dates)),
   };
 }
