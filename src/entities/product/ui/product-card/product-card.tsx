@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { ProductCardLink } from './product-card-link';
 import { StatusBadge } from '@/shared/ui';
 import styles from './product-card.module.css';
 
@@ -59,9 +59,9 @@ export function ProductCard({
           </p>
         )}
         <h3 className={styles.title}>
-          <Link href={href} className={styles.link}>
+          <ProductCardLink href={href} className={styles.link} catalog={catalog}>
             {name}
-          </Link>
+          </ProductCardLink>
         </h3>
         <p className={styles.meta}>{details}</p>
         <div className={styles.footer}>

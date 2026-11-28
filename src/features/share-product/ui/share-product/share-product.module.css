@@ -1,0 +1,22 @@
+.root {
+  position: relative;
+}
+.share.share {
+  color: var(--design-amber);
+}
+.message {
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  top: 100%;
+  width: min(300px, 80vw);
+  padding: 12px;
+  background: var(--design-surface);
+  color: var(--design-charcoal);
+  border: 1px solid var(--design-border);
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.message input {
+  width: 100%;
+}

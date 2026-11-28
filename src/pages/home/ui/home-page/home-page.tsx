@@ -13,10 +13,10 @@ import { CatalogUrlCorrection } from './catalog-url-correction/catalog-url-corre
 import styles from './home-page.module.css';
 
 const navigationLinks = [
-  { href: ROUTES.catalog, label: 'Каталог', current: true },
+  { href: ROUTES.catalog, label: 'Каталог', current: 'page' },
   { href: ROUTES.pickup, label: 'Условия выдачи' },
   { href: ROUTES.bookingHistory, label: 'История броней' },
-];
+] as const;
 
 export async function HomePage({ searchParams }: { searchParams: Promise<CatalogSearchParams> }) {
   const { params, total, pages, range, canonical, sourceQuery, notices, products, updatedAt } =
@@ -31,7 +31,6 @@ export async function HomePage({ searchParams }: { searchParams: Promise<Catalog
             flush
             homeHref={ROUTES.catalog}
             links={navigationLinks}
-            dates={{ href: '#catalog-period', label: range }}
             dateControl={<CatalogPeriod params={params} header />}
             cartHref={ROUTES.cart}
             searchHref="#catalog-filters"

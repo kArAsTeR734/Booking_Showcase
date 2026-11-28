@@ -54,7 +54,7 @@ export function CatalogResults({
       <CatalogAppliedFilters params={params} range={range} />
       <CatalogResultsStatus>
         {products.length > 0 ? (
-          <CatalogProductGrid products={products} />
+          <CatalogProductGrid products={products} dates={params.dates} />
         ) : total === 0 ? (
           <StatePanel
             title="По выбранным параметрам ничего не найдено"

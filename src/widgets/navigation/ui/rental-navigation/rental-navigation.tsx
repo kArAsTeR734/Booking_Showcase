@@ -6,15 +6,17 @@ import styles from './rental-navigation.module.css';
 
 type RentalNavigationProps = {
   homeHref: string;
-  links: readonly { href: string; label: string; current?: boolean }[];
-  dates: { href: string; label: string };
+  links: readonly { href: string; label: string; current?: 'page' | 'section' }[];
   cartHref: string;
   cartCount?: number;
   searchHref: string;
   compact?: boolean;
   flush?: boolean;
-  dateControl?: ReactNode;
-};
+  cartControl?: ReactNode;
+} & (
+  | { dateControl: ReactNode; dates?: never }
+  | { dateControl?: never; dates: { href: string; label: string } }
+);
 
 export function RentalNavigation({
   homeHref,
@@ -26,6 +28,7 @@ export function RentalNavigation({
   compact = false,
   flush = false,
   dateControl,
+  cartControl,
 }: RentalNavigationProps) {
   const cartLabel = cartCount === undefined ? 'Корзина' : `Корзина · ${cartCount}`;
 
@@ -44,27 +47,35 @@ export function RentalNavigation({
       <ul className={styles.links}>
         {links.map(({ href, label, current }) => (
           <li key={href}>
-            <Link href={href} aria-current={current ? 'page' : undefined}>
+            <Link
+              href={href}
+              aria-current={current === 'page' ? 'page' : undefined}
+              data-active={Boolean(current)}
+            >
               {label}
             </Link>
           </li>
         ))}
       </ul>
       <div className={styles.desktopTools}>
-        {dateControl ?? (
+        {dateControl !== undefined ? (
+          dateControl
+        ) : dates ? (
           <Button asChild variant="ghost" size="sm" className={styles.date}>
             <Link href={dates.href}>
               <CalendarDays aria-hidden />
               {dates.label}
             </Link>
           </Button>
+        ) : null}
+        {cartControl ?? (
+          <Button asChild size="sm" className={styles.cart}>
+            <Link href={cartHref}>
+              <ShoppingBag aria-hidden />
+              {cartLabel}
+            </Link>
+          </Button>
         )}
-        <Button asChild size="sm" className={styles.cart}>
-          <Link href={cartHref}>
-            <ShoppingBag aria-hidden />
-            {cartLabel}
-          </Link>
-        </Button>
       </div>
       <div className={styles.mobileTools}>
         <Button asChild variant="ghost" size="icon">

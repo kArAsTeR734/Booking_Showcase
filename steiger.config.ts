@@ -40,4 +40,9 @@ export default defineConfig([
     files: ['./src/widgets/catalog-results/**'],
     rules: { 'fsd/insignificant-slice': 'off' },
   },
+  {
+    // Самостоятельные действия карточки выделены в отдельные слайсы по спецификации.
+    files: ['./src/features/add-to-cart/**', './src/features/share-product/**'],
+    rules: { 'fsd/insignificant-slice': 'off' },
+  },
 ]);

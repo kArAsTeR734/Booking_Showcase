@@ -40,12 +40,12 @@ export async function GET(request: Request, context: RouteContext) {
   if (resource === 'products' && !id) {
     return Response.json(listProducts(new URL(request.url).searchParams));
   }
-  if (process.env.NODE_ENV === 'production') return error(404, 'NOT_FOUND');
-
   if (resource === 'products') {
     const product = getProduct(id);
     return product ? Response.json(product) : error(404, 'NOT_FOUND');
   }
+
+  if (process.env.NODE_ENV === 'production') return error(404, 'NOT_FOUND');
 
   if (resource === 'bookings' && !id) {
     const bookings = getSession(request)?.bookings;
