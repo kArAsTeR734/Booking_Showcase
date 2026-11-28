@@ -17,6 +17,7 @@ type DateRangePickerProps = {
   duration?: string;
   header?: boolean;
   allowSameDay?: boolean;
+  disabled?: boolean;
 };
 
 export function DateRangePicker({
@@ -28,6 +29,7 @@ export function DateRangePicker({
   duration,
   header = false,
   allowSameDay = true,
+  disabled = false,
 }: DateRangePickerProps) {
   const id = useId();
   const [open, setOpen] = useState(false);
@@ -37,6 +39,7 @@ export function DateRangePicker({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (disabled) return;
     const fields = new FormData(event.currentTarget);
     const end = fields.get('end');
 
@@ -61,6 +64,7 @@ export function DateRangePicker({
     >
       <Popover.Trigger asChild>
         <Button
+          disabled={disabled}
           variant={header ? 'ghost' : 'outline'}
           className={styles.trigger}
           data-header={header}
@@ -112,7 +116,7 @@ export function DateRangePicker({
               onChange={() => setError(undefined)}
               required
             />
-            <Button type="submit" variant="secondary">
+            <Button type="submit" variant="secondary" disabled={disabled}>
               Применить
             </Button>
           </form>

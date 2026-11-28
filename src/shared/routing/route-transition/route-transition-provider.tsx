@@ -8,14 +8,18 @@ export function RouteTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
 
+  function navigate(href: string) {
+    if (pending) return;
+    startTransition(() => router.push(href, { scroll: false }));
+  }
+
+  function refresh() {
+    if (pending) return;
+    startTransition(() => router.refresh());
+  }
+
   return (
-    <RouteTransitionContext.Provider
-      value={{
-        navigate: (href) => startTransition(() => router.push(href, { scroll: false })),
-        refresh: () => startTransition(() => router.refresh()),
-        pending,
-      }}
-    >
+    <RouteTransitionContext.Provider value={{ navigate, refresh, pending }}>
       {children}
     </RouteTransitionContext.Provider>
   );

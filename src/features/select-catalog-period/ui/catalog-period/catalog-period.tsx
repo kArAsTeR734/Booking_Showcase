@@ -13,11 +13,12 @@ export function CatalogPeriod({
   header?: boolean;
   desktopSummary?: string;
 }) {
-  const { navigate } = useRouteTransition();
+  const { navigate, pending } = useRouteTransition();
   const { range, duration } = periodLabels(params.dates);
   return (
     <DateRangePicker
       value={params.dates}
+      disabled={pending}
       header={header}
       allowSameDay={false}
       desktopSummary={desktopSummary}

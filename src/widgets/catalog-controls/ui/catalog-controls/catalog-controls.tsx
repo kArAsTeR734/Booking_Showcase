@@ -6,6 +6,7 @@ import { categories, type CatalogParams } from '@/entities/catalog';
 import { Button, FilterChip } from '@/shared/ui';
 import { CatalogFilterForm } from '@/features/filter-catalog';
 import { CatalogSort } from '@/features/sort-catalog';
+import { useCatalogFiltersVisibility } from '../../model/use-catalog-filters-visibility';
 import styles from './catalog-controls.module.css';
 
 export function CatalogControls({
@@ -19,6 +20,7 @@ export function CatalogControls({
 }) {
   const id = useId();
   const [expanded, setExpanded] = useState(false);
+  const filtersVisible = useCatalogFiltersVisibility(expanded);
   const count = [params.category, params.available, params.minPrice || params.maxPrice].filter(
     Boolean,
   ).length;
@@ -54,6 +56,7 @@ export function CatalogControls({
         params={params}
         total={total}
         expanded={expanded}
+        visible={filtersVisible}
         demo={demo}
         onClose={() => setExpanded(false)}
       />

@@ -32,6 +32,10 @@
   text-align: start;
   cursor: pointer;
 }
+.selectTrigger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 .selectMenu {
   z-index: 10;
   width: var(--radix-select-trigger-width);

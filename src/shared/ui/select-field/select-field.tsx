@@ -11,9 +11,17 @@ type SelectFieldProps = {
   value: string;
   onValueChange: (value: string) => void;
   compact?: boolean;
+  disabled?: boolean;
 };
 
-export function SelectField({ label, options, value, onValueChange, compact }: SelectFieldProps) {
+export function SelectField({
+  label,
+  options,
+  value,
+  onValueChange,
+  compact,
+  disabled,
+}: SelectFieldProps) {
   const id = useId();
 
   return (
@@ -21,7 +29,7 @@ export function SelectField({ label, options, value, onValueChange, compact }: S
       <label htmlFor={id} className={styles.eyebrow}>
         {label}
       </label>
-      <Select.Root value={value} onValueChange={onValueChange}>
+      <Select.Root value={value} onValueChange={onValueChange} disabled={disabled}>
         <Select.Trigger id={id} className={styles.selectTrigger}>
           <Select.Value />
           <Select.Icon asChild>
@@ -40,7 +48,7 @@ export function SelectField({ label, options, value, onValueChange, compact }: S
                 <Select.Item
                   key={option.value}
                   value={option.value}
-                  disabled={option.disabled}
+                  disabled={disabled || option.disabled}
                   className={styles.selectOption}
                 >
                   <Select.ItemText>{option.label}</Select.ItemText>

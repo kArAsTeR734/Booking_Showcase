@@ -14,15 +14,16 @@ export function useCatalogFilterForm(
   params: CatalogParams,
   total: number | undefined,
   onClose: () => void,
+  visible: boolean,
 ) {
-  const { navigate } = useRouteTransition();
+  const { navigate, pending } = useRouteTransition();
   const [filters, setFilters] = useState<Filters>(() => ({
     category: params.category,
     available: params.available,
     minPrice: params.minPrice,
     maxPrice: params.maxPrice,
   }));
-  const [error, setError] = useState<string>();
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const draft = {
     category: filters.category,
     available: filters.available,
@@ -34,23 +35,33 @@ export function useCatalogFilterForm(
   const knownTotal = draftQuery === appliedQuery ? total : undefined;
   const priceError = validatePrices(filters.minPrice ?? '', filters.maxPrice ?? '');
   const draftTotal = useDraftCatalogTotal(
-    priceError || knownTotal !== undefined ? undefined : draftQuery,
+    !visible || priceError || knownTotal !== undefined ? undefined : draftQuery,
   );
 
   function apply(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(priceError);
+    if (pending) return;
+    setHasSubmitted(true);
     if (priceError) return;
     onClose();
     navigate(catalogHref({ ...params, ...draft, page: 1 }));
   }
 
   function reset() {
+    if (pending) return;
     setFilters({});
-    setError(undefined);
+    setHasSubmitted(false);
     onClose();
     navigate(catalogHref(resetFilters(params)));
   }
 
-  return { filters, setFilters, error, matchCount: knownTotal ?? draftTotal, apply, reset };
+  return {
+    filters,
+    setFilters,
+    error: hasSubmitted ? priceError : undefined,
+    matchCount: knownTotal ?? draftTotal,
+    pending,
+    apply,
+    reset,
+  };
 }

@@ -12,6 +12,7 @@ export function CatalogFilterForm({
   params,
   total,
   expanded,
+  visible,
   demo,
   onClose,
 }: {
@@ -19,15 +20,17 @@ export function CatalogFilterForm({
   params: CatalogParams;
   total?: number;
   expanded: boolean;
+  visible: boolean;
   demo?: boolean;
   onClose: () => void;
 }) {
-  const { filters, setFilters, error, matchCount, apply, reset } = useCatalogFilterForm(
+  const { filters, setFilters, error, matchCount, pending, apply, reset } = useCatalogFilterForm(
     params,
     total,
     onClose,
+    visible,
   );
-  const availableCounts = useAvailableCategoryCounts(demo);
+  const availableCounts = useAvailableCategoryCounts(visible && !demo);
   const filterCategories = demo
     ? [
         { value: 'tents', title: 'Палатки · 8' },
@@ -45,7 +48,7 @@ export function CatalogFilterForm({
     <form id={id} className={styles.form} data-expanded={expanded} onSubmit={apply}>
       <div className={styles.formHeader}>
         <h2>Фильтры</h2>
-        <Button type="button" onClick={reset} variant="ghost" size="sm">
+        <Button type="button" onClick={reset} variant="ghost" size="sm" disabled={pending}>
           Сбросить
         </Button>
       </div>
@@ -117,7 +120,7 @@ export function CatalogFilterForm({
           </p>
         )}
       </fieldset>
-      <Button type="submit" className={styles.submit}>
+      <Button type="submit" className={styles.submit} disabled={pending}>
         <Search aria-hidden />
         <span aria-live="polite">
           {matchCount === undefined ? 'Показать' : `Показать ${matchCount}`}

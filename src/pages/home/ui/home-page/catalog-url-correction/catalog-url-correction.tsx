@@ -16,7 +16,9 @@ export function CatalogUrlCorrection({
     if (!canonical || pending) return;
     const current = new URLSearchParams(window.location.search);
     current.sort();
-    if (current.toString() === sourceQuery) window.history.replaceState(null, '', canonical);
+    if (current.toString() === sourceQuery) {
+      window.history.replaceState(null, '', canonical + window.location.hash);
+    }
   }, [canonical, sourceQuery, pending]);
 
   return null;

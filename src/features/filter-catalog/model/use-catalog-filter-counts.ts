@@ -7,9 +7,9 @@ const availableCategoryQueries = categoryKeys.map((category) => ({
   select: (count: number) => ({ category, count }),
 }));
 
-export function useAvailableCategoryCounts(demo?: boolean): Partial<Record<Category, number>> {
+export function useAvailableCategoryCounts(enabled: boolean): Partial<Record<Category, number>> {
   const totals = useQueries({
-    queries: demo ? [] : availableCategoryQueries,
+    queries: enabled ? availableCategoryQueries : [],
   });
   return Object.fromEntries(
     totals.flatMap(({ data, isSuccess }) =>

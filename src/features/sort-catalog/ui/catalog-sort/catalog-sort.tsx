@@ -16,11 +16,12 @@ export function CatalogSort({
   params: CatalogParams;
   compact?: boolean;
 }) {
-  const { navigate } = useRouteTransition();
+  const { navigate, pending } = useRouteTransition();
   return (
     <SelectField
       label="Сортировка"
       compact={compact}
+      disabled={pending}
       value={params.sort ?? 'popular'}
       options={compact ? [{ value: 'popular', label: 'Популярные' }, ...sorts.slice(1)] : sorts}
       onValueChange={(value) =>
