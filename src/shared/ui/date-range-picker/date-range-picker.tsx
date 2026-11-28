@@ -12,7 +12,7 @@ type DateRangePickerProps = {
   value: DateRange | null;
   onValueChange: (value: DateRange) => void;
   label?: string;
-  summary?: string;
+  desktopSummary?: string;
   shortSummary?: string;
   duration?: string;
   header?: boolean;
@@ -23,7 +23,7 @@ export function DateRangePicker({
   value,
   onValueChange,
   label = 'Период аренды',
-  summary,
+  desktopSummary,
   shortSummary,
   duration,
   header = false,
@@ -33,6 +33,7 @@ export function DateRangePicker({
   const [open, setOpen] = useState(false);
   const [start, setStart] = useState('');
   const [error, setError] = useState<string>();
+  const rangeSummary = shortSummary ?? (value ? formatDateRange(value) : 'Выберите даты');
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -65,19 +66,19 @@ export function DateRangePicker({
           data-header={header}
           data-responsive={Boolean(shortSummary)}
           aria-label={
-            summary || header ? `${label}. ${header ? shortSummary : summary}` : undefined
+            desktopSummary || shortSummary || header
+              ? `${label}. ${header ? rangeSummary : (desktopSummary ?? rangeSummary)}`
+              : undefined
           }
         >
           <CalendarDays aria-hidden className={styles.calendar} />
           {header ? (
-            shortSummary
+            rangeSummary
           ) : (
             <span className={styles.summary}>
               <span className={styles.label}>{label}</span>
               {duration && <span className={styles.duration}>{duration}</span>}
-              <span className={styles.value}>
-                {summary ?? (value ? formatDateRange(value) : 'Выберите даты')}
-              </span>
+              <span className={styles.value}>{desktopSummary ?? rangeSummary}</span>
               {shortSummary && <span className={styles.shortSummary}>{shortSummary}</span>}
             </span>
           )}

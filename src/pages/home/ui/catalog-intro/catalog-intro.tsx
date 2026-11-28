@@ -29,7 +29,7 @@ export function CatalogIntro({
         )}
       </div>
       <div id="catalog-period" className={styles.period}>
-        <CatalogPeriod params={params} summary={periodSummary} />
+        <CatalogPeriod params={params} desktopSummary={periodSummary} />
       </div>
     </div>
   );

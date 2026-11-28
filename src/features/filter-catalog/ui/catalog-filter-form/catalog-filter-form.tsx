@@ -1,23 +1,10 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import { useState, type FormEvent } from 'react';
 import { Button, OptionCheckbox, TextField } from '@/shared/ui';
-import {
-  categories,
-  categoryKeys,
-  catalogHref,
-  productQuery,
-  resetFilters,
-  validatePrices,
-  type CatalogParams,
-  type Filters,
-} from '@/entities/catalog';
-import { useRouteTransition } from '@/shared/routing';
-import {
-  useAvailableCategoryCounts,
-  useDraftCatalogTotal,
-} from '../../model/use-catalog-filter-counts';
+import { categories, categoryKeys, type CatalogParams, type Filters } from '@/entities/catalog';
+import { useAvailableCategoryCounts } from '../../model/use-catalog-filter-counts';
+import { useCatalogFilterForm } from '../../model/use-catalog-filter-form';
 import styles from './catalog-filter-form.module.css';
 
 export function CatalogFilterForm({
@@ -35,28 +22,11 @@ export function CatalogFilterForm({
   demo?: boolean;
   onClose: () => void;
 }) {
-  const { navigate } = useRouteTransition();
-  const [filters, setFilters] = useState<Filters>(() => ({
-    category: params.category,
-    available: params.available,
-    minPrice: params.minPrice,
-    maxPrice: params.maxPrice,
-  }));
-  const [error, setError] = useState<string>();
-  const draft = {
-    category: filters.category,
-    available: filters.available,
-    minPrice: filters.minPrice || undefined,
-    maxPrice: filters.maxPrice || undefined,
-  };
-  const draftQuery = productQuery({ ...draft, page: 1 }).toString();
-  const appliedQuery = productQuery({ ...params, sort: undefined, page: 1 }).toString();
-  const knownTotal = draftQuery === appliedQuery ? total : undefined;
-  const priceError = validatePrices(filters.minPrice ?? '', filters.maxPrice ?? '');
-  const draftTotal = useDraftCatalogTotal(
-    priceError || knownTotal !== undefined ? undefined : draftQuery,
+  const { filters, setFilters, error, matchCount, apply, reset } = useCatalogFilterForm(
+    params,
+    total,
+    onClose,
   );
-  const matchCount = knownTotal ?? draftTotal;
   const availableCounts = useAvailableCategoryCounts(demo);
   const filterCategories = demo
     ? [
@@ -70,27 +40,6 @@ export function CatalogFilterForm({
         const count = availableCounts[value];
         return { value, title: count === undefined ? title : `${title} · ${count}` };
       });
-
-  function apply(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setError(priceError);
-    if (priceError) return;
-    onClose();
-    navigate(
-      catalogHref({
-        ...params,
-        ...draft,
-        page: 1,
-      }),
-    );
-  }
-
-  function reset() {
-    setFilters({});
-    setError(undefined);
-    onClose();
-    navigate(catalogHref(resetFilters(params)));
-  }
 
   return (
     <form id={id} className={styles.form} data-expanded={expanded} onSubmit={apply}>

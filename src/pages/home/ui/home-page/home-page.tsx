@@ -5,7 +5,7 @@ import { WarningAlert } from '@/shared/ui';
 import { CatalogControls } from '@/widgets/catalog-controls';
 import { CatalogResults } from '@/widgets/catalog-results';
 import { RentalMobileNavigation, RentalNavigation } from '@/widgets/navigation';
-import type { CatalogSearch } from '../../model/catalog-params';
+import type { CatalogSearchParams } from '../../model/catalog-params';
 import { loadCatalogPage } from '../../model/load-catalog-page';
 import { CatalogIntro } from '../catalog-intro/catalog-intro';
 import { CatalogSupplement } from './catalog-supplement/catalog-supplement';
@@ -18,7 +18,7 @@ const navigationLinks = [
   { href: ROUTES.bookingHistory, label: 'История броней' },
 ];
 
-export async function HomePage({ searchParams }: { searchParams: Promise<CatalogSearch> }) {
+export async function HomePage({ searchParams }: { searchParams: Promise<CatalogSearchParams> }) {
   const {
     params,
     total,
@@ -43,7 +43,7 @@ export async function HomePage({ searchParams }: { searchParams: Promise<Catalog
             homeHref={ROUTES.catalog}
             links={navigationLinks}
             dates={{ href: '#catalog-period', label: range }}
-            dateControl={<CatalogPeriod params={params} header summary={periodSummary} />}
+            dateControl={<CatalogPeriod params={params} header />}
             cartHref={ROUTES.cart}
             cartCount={demo ? 2 : undefined}
             searchHref="#catalog-filters"

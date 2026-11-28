@@ -2,19 +2,20 @@ import { useQueries, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { catalogTotalOptions, categoryKeys, productQuery, type Category } from '@/entities/catalog';
 
-const availableCategoryQueries = categoryKeys.map((category) =>
-  catalogTotalOptions(productQuery({ category, available: true, page: 1 }).toString()),
-);
+const availableCategoryQueries = categoryKeys.map((category) => ({
+  ...catalogTotalOptions(productQuery({ category, available: true, page: 1 }).toString()),
+  select: (count: number) => ({ category, count }),
+}));
 
-export function useAvailableCategoryCounts(demo?: boolean) {
+export function useAvailableCategoryCounts(demo?: boolean): Partial<Record<Category, number>> {
   const totals = useQueries({
     queries: demo ? [] : availableCategoryQueries,
   });
-  const counts: Partial<Record<Category, number>> = {};
-  totals.forEach(({ data, isSuccess }, index) => {
-    if (isSuccess) counts[categoryKeys[index]] = data;
-  });
-  return counts;
+  return Object.fromEntries(
+    totals.flatMap(({ data, isSuccess }) =>
+      isSuccess ? [[data.category, data.count] as const] : [],
+    ),
+  );
 }
 
 export function useDraftCatalogTotal(query: string | undefined) {

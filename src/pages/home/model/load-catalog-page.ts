@@ -7,12 +7,12 @@ import {
   correctedPage,
   parseCatalogParams,
   safePeriod,
-  type CatalogSearch,
+  type CatalogSearchParams,
 } from './catalog-params';
 
 const calendarDate = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Volgograd' });
 
-function normalizedQuery(raw: CatalogSearch) {
+function normalizedQuery(raw: CatalogSearchParams) {
   const query = new URLSearchParams();
   for (const [key, value] of Object.entries(raw)) {
     if (value === undefined) continue;
@@ -22,7 +22,7 @@ function normalizedQuery(raw: CatalogSearch) {
   return query.toString();
 }
 
-export async function loadCatalogPage(raw: CatalogSearch) {
+export async function loadCatalogPage(raw: CatalogSearchParams) {
   if (raw.demo === '1') {
     const products: CatalogProductCard[] = demoProducts.map((product) => ({
       ...product,

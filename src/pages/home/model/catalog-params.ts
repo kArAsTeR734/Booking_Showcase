@@ -7,7 +7,7 @@ import {
 } from '@/entities/catalog';
 import type { DateRange } from '@/shared/lib';
 
-export type CatalogSearch = Record<string, string | string[] | undefined>;
+export type CatalogSearchParams = Record<string, string | string[] | undefined>;
 
 function validDate(value: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -25,7 +25,7 @@ export function correctedPage(requested: string) {
   return `Параметр page=${requested} заменён на безопасное значение 1. Даты и корректные фильтры сохранены в ссылке.`;
 }
 
-function readParam(raw: CatalogSearch, key: string, notices: string[]) {
+function readParam(raw: CatalogSearchParams, key: string, notices: string[]) {
   const value = raw[key];
   if (!Array.isArray(value)) return value;
   notices.push(`Параметр ${key} указан несколько раз. Использовано первое значение.`);
@@ -90,7 +90,7 @@ function parsePage(value: string | undefined, notices: string[]) {
   return 1;
 }
 
-export function parseCatalogParams(raw: CatalogSearch, fallback: DateRange) {
+export function parseCatalogParams(raw: CatalogSearchParams, fallback: DateRange) {
   const notices: string[] = [];
   const read = (key: string) => readParam(raw, key, notices);
   const dates = parsePeriod(read('start'), read('end'), fallback, notices);
